@@ -7,15 +7,15 @@ Het starten van een extern programma op de achtergrond
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * QML wrapper to start a detached process
+ * QML wrapper om een losstaand proces te starten
  *
- * @param executablePath the path of the executable
- * @param parameters a list of parameter strings
+ * @param executablePath het pad van het uitvoerbare
+ * @param parameters een lijst met parameterreeksen
  * @param callbackIdentifier an identifier to be used in the onDetachedProcessCallback() function (optional)
- * @param callbackParameter an additional parameter for loops or the like (optional)
- * @param processData data written to the process if the callback is used (optional)
- * @param workingDirectory the working directory to execute the process in (optional, only works without callback)
- * @return true on success, false otherwise
+ * @param callbackParameter een extra parameter voor loops of iets dergelijks (optioneel)
+ * @param processData gegevens die naar het proces worden geschreven als de callback wordt gebruikt (optioneel)
+ * @param workingDirectory de werkdirectory om het proces in uit te voeren (optioneel, werkt alleen zonder callback)
+ * @return true op succes, anders vals
  */
 bool startDetachedProcess(QString executablePath, QStringList parameters,
                             QString callbackIdentifier, QVariant callbackParameter,
@@ -100,9 +100,9 @@ De huidige notitie ophalen
 /**
   * QML-wrapper om de huidige notitie te krijgen
   *
-  * @ retourneert {NoteApi} het huidige nootobject
+  * @returns {NoteApi} het huidige notitieobject
   */
-OpmerkingApi currentNote ();
+NoteApi currentNote();
 ```
 
 ### Voorbeeld
@@ -355,12 +355,12 @@ void ScriptingService::registerLabel(QString identifier, QString text);
 ```js
 script.registerLabel("html-label", "<strong>Strong</strong> HTML text<br />with three lines<br />and a <a href='https://www.qownnotes.org'>link to a website</a>.");
 
-script.registerLabel("long-label", "another very long text, another very long text, another very long text, another very long text, another very long text, another very long text, another very long text, another very long text, another very long text, another very long text, another very long text that will wrap");
+script.registerLabel("long-label", "nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst, nog een zeer lange tekst die zal omlopen");
 
 script.registerLabel("counter-label");
 ```
 
-De labels zijn zichtbaar in de scriptdock-widget.
+The labels will be visible in the *Scripting panel*, which you need to enable in the *Window / Panels* menu.
 
 U kunt zowel platte tekst als html in de labels gebruiken. De tekst kan worden geselecteerd en er kan op links worden geklikt.
 
@@ -424,11 +424,11 @@ Toegang tot het klembord
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Returns the content of the clipboard as text or html
- *
- * @param asHtml returns the clipboard content as html instead of text
- */
-QString ScriptingService::clipboard(bool asHtml);
+  * Retourneert de inhoud van het klembord als tekst of html
+  *
+  * @param asHtml geeft de inhoud van het klembord terug als html in plaats van tekst
+  */
+QString ScriptingService :: clipboard (bool asHtml);
 ```
 
 ### Voorbeeld
@@ -523,9 +523,9 @@ Selecteer de huidige woord in de tekstbewerking van de notitie
 ### Methodeaanroep en parameters
 ```cpp
 /**
-  * Selecteert de huidige regel in de tekstbewerking van de notitie
+  * Selecteert het huidige woord in de notitietekstbewerking
   */
-void ScriptingService :: noteTextEditSelectCurrentWord ();
+void ScriptingService::noteTextEditSelectCurrentWord();
 ```
 
 ### Voorbeeld
@@ -921,17 +921,21 @@ Naar een notitie springen
 ### Methodeaanroep en parameters
 ```cpp
 /**
-  * Stelt de huidige notitie in als de notitie zichtbaar is in de notitielijst
-  *
-  * @param note Note Api-notitie om naar te springen
-  */
-void ScriptingService::setCurrentNote(NoteApi *note);
+ * Sets the current note if the note is visible in the note list
+ *
+ * @param note NoteApi note to jump to
+ * @param asTab bool if true the note will be opened in a new tab (if not already open)
+ */
+void ScriptingService::setCurrentNote(NoteApi *note, bool asTab = false);
 ```
 
 ### Voorbeeld
 ```js
-// spring naar de notitie
-script.setCurrentNote (opmerking);
+// jump to the note
+script.setCurrentNote(note);
+
+// open note in new tab (if not already open)
+script.setCurrentNote(note, true);
 ```
 
 You may want to take a look at the example [journal-entry.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/journal-entry.qml).
@@ -942,23 +946,23 @@ Springen naar een submap van een notitie
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Jumps to a note subfolder
- *
- * @param noteSubFolderPath {QString} path of the subfolder, relative to the note folder
- * @param separator {QString} separator between parts of the path, default "/"
- * @return true if jump was successful
- */
-bool ScriptingService::jumpToNoteSubFolder(const QString &noteSubFolderPath,
-                                            QString separator);
+  * Springt naar een submap voor notities
+  *
+  * @param noteSubFolderPath {QString} pad van de submap, relatief aan de notitiemap
+  * @param scheidingsteken {QString} scheidingsteken tussen delen van het pad, standaard "/"
+  * @return waar als de sprong succesvol was
+  */
+bool ScriptingService :: jumpToNoteSubFolder (const QString & amp; noteSubFolderPath,
+                                             QString-scheidingsteken);
 ```
 
 ### Voorbeeld
 ```js
-// jump to the note subfolder "a sub folder"
-script.jumpToNoteSubFolder("a sub folder");
+// spring naar de submap notitie "een submap"
+script.jumpToNoteSubFolder ("een submap");
 
-// jump to the note subfolder "sub" inside of "a sub folder"
-script.jumpToNoteSubFolder("a sub folder/sub");
+// spring naar de submap "sub" van de notitie in "een submap"
+script.jumpToNoteSubFolder ("een submap / sub");
 ```
 
 ::: tip
@@ -991,16 +995,16 @@ Er wordt een berichtvenster met een vraag weergegeven
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Shows a question message box
- *
- * For information about buttons see:
- * https://doc.qt.io/qt-5/qmessagebox.html#StandardButton-enum
- *
- * @param text
- * @param title (optional)
- * @param buttons buttons that should be shown (optional)
- * @param defaultButton default button that will be selected (optional)
- * @return id of pressed button
+  * Toont een vraagberichtvenster
+  *
+  * Voor informatie over knoppen zie:
+  * https://doc.qt.io/qt-5/qmessagebox.html#StandardButton-enum
+  *
+  * @param tekst
+  * @param titel (optioneel)
+  * @param knoppen knoppen die getoond moeten worden (optioneel)
+  * @param defaultButton standaardknop die wordt geselecteerd (optioneel)
+  * @return id van ingedrukte knop
  */
 int ScriptingService::questionMessageBox(
         QString text, QString title, int buttons, int defaultButton);
@@ -1024,21 +1028,21 @@ Een open bestandsdialoog weergeven
 
 ### Methodeaanroep en parameters
 ```cpp
-/**
- * Shows an open file dialog
- *
- * @param caption (optional)
- * @param dir (optional)
- * @param filter (optional)
- * @return QString
- */
+**
+  * Toont een open bestandsdialoog
+  *
+  * @param caption (optioneel)
+  * @param dir (optioneel)
+  * @param filter (optioneel)
+  * @return QString
+  * /
 QString ScriptingService::getOpenFileName(QString caption, QString dir,
                                             QString filter);
 ```
 
 ### Voorbeeld
 ```js
-// show an open file dialog
+// toon een open bestandsdialoog
 var fileName = script.getOpenFileName("Please select an image", "/home/user/images", "Images (*.png *.xpm *.jpg)");
 ```
 
@@ -1048,7 +1052,7 @@ Een zekere bestandsdialoog weergeven
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Shows a save file dialog
+ * Toont een dialoogvenster voor het opslaan van bestanden
  *
  * @param caption (optional)
  * @param dir (optional)
@@ -1061,7 +1065,7 @@ QString ScriptingService::getSaveFileName(QString caption, QString dir,
 
 ### Voorbeeld
 ```js
-// show a save file dialog
+// toon een dialoogvenster voor het opslaan van bestanden
 var fileName = script.getSaveFileName("Please select HTML file to save", "output.html", "HTML (*.html)");
 ```
 
@@ -1082,6 +1086,7 @@ property bool myBoolean;
 property string myText;
 property int myInt;
 property string myFile;
+property string myDirectory;
 property string mySelection;
 
 // register your settings variables so the user can set them in the script settings
@@ -1127,6 +1132,13 @@ property variant settingsVariables: [
         "default": "pandoc",
     },
     {
+        "identifier": "myDirectory",
+        "name": "I am a directory selector",
+        "description": "Please select the directory:",
+        "type": "directory",
+        "default": "/home",
+    },
+    {
         "identifier": "mySelection",
         "name": "I am an item selector",
         "description": "Please select an item:",
@@ -1142,10 +1154,10 @@ Bovendien kun je de `settingsVariables` overschrijven met een speciale functie `
 ### Voorbeeld
 ```js
 /**
- * Registers the settings variables again
- *
- * Use this method if you want to use code to override your variables, like setting
- * default values depending on the operating system.
+  * Registreert de instellingsvariabelen opnieuw
+  *
+  * Gebruik deze methode als u code wilt gebruiken om uw variabelen te overschrijven, zoals instelling
+  * standaardwaarden zijn afhankelijk van het besturingssysteem.
  */
 function registerSettingsVariables() {
     if (script.platformIsWindows()) {
@@ -1163,9 +1175,9 @@ Persistente variabelen opslaan en laden
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Stores a persistent variable
- * These variables are accessible globally over all scripts
- * Please use a meaningful prefix in your key like "PersistentVariablesTest/myVar"
+* Slaat een persistente variabele op
+  * Deze variabelen zijn wereldwijd toegankelijk via alle scripts
+  * Gebruik een betekenisvol voorvoegsel in uw sleutel, zoals "PersistentVariablesTest/myVar"
  *
  * @param key {QString}
  * @param value {QVariant}
@@ -1174,11 +1186,11 @@ void ScriptingService::setPersistentVariable(const QString &key,
                                                 const QVariant &value);
 
 /**
- * Loads a persistent variable
- * These variables are accessible globally over all scripts
+* Laadt een persistente variabele
+  * Deze variabelen zijn wereldwijd toegankelijk via alle scripts
  *
  * @param key {QString}
- * @param defaultValue {QVariant} return value if the setting doesn't exist (optional)
+ * @param defaultValue {QVariant} retourwaarde als de instelling niet bestaat (optioneel)
  * @return
  */
 QVariant ScriptingService::getPersistentVariable(const QString &key,
@@ -1204,12 +1216,12 @@ Variabelen voor applicatie-instellingen laden
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Loads an application settings variable
- *
- * @param key {QString}
- * @param defaultValue {QVariant} return value if the setting doesn't exist (optional)
- * @return
- */
+  * Laadt een variabele voor toepassingsinstellingen
+  *
+  * @param sleutel {QString}
+  * @param defaultValue {QVariant} retourwaarde als de instelling niet bestaat (optioneel)
+  * @return
+  */
 QVariant ScriptingService::getApplicationSettingsVariable(const QString &key,
                                                             const QVariant &defaultValue);
 ```
@@ -1220,7 +1232,7 @@ QVariant ScriptingService::getApplicationSettingsVariable(const QString &key,
 script.log(script.getApplicationSettingsVariable("gitExecutablePath"));
 ```
 
-Houd er rekening mee dat instellingen eigenlijk leeg kunnen zijn, daar moet u zelf voor zorgen. `defaultValue` is only used if the setting doesn't exist at all.
+Houd er rekening mee dat instellingen eigenlijk leeg kunnen zijn, daar moet u zelf voor zorgen. `defaultValue` wordt alleen gebruikt als de instelling helemaal niet bestaat.
 
 Een cachemap maken
 --------------------------
@@ -1230,17 +1242,17 @@ U kunt bestanden cachen op de standaard cachelocatie van uw systeem.
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Returns a cache directory for a script
- *
- * @param {QString} subDir the subfolder to create and use
- * @return {QString} the cache dir path
- */
+  * Retourneert een cachemap voor een script
+  *
+  * @param {QString} subDir de submap die moet worden gemaakt en gebruikt
+  * @return {QString} het pad naar de cache-map
+  */
 QString ScriptingService::cacheDir(const QString &subDir) const;
 ```
 
 ### Voorbeeld
 ```js
-// create the cache directory for my-script-id
+// maak de cachemap voor my-script-id
 var cacheDirForScript = script.cacheDir("my-script-id");
 ```
 
@@ -1306,8 +1318,8 @@ QString ScriptingService::toNativeDirSeparators(QString path);
 
 ### Voorbeeld
 ```js
-// will return "c:\winnt\system32" on Windows
-script.log(script.toNativeDirSeparators("c:/winnt/system32"));
+// retourneert "c:\winnt\system32" op Windows
+script.log (script.toNativeDirSeparators ("c:/winnt/system32"));
 ```
 
 Padscheidingstekens omzetten van native
@@ -1410,10 +1422,10 @@ void ScriptingService::triggerMenuAction(QString objectName, QString checked);
 
 ### Voorbeeld
 ```js
-// toggle the read-only mode
+// schakel de alleen-lezen modus in
 script.triggerMenuAction("actionAllow_note_editing");
 
-// disable the read-only mode
+// de alleen-lezen modus uitschakelen
 script.triggerMenuAction("actionAllow_note_editing", 1);
 ```
 
@@ -1501,12 +1513,12 @@ Tekst uit een bestand lezen
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Read text from a file
- *
- * @param filePath {QString} path of the file to load
- * @param codec {QString} file encoding (default: UTF-8)
- * @return the file data or null if the file does not exist
- */
+  * Lees tekst uit een bestand
+  *
+  * @param filePath {QString} pad van het te laden bestand
+  * @param codec {QString} bestandscodering (standaard: UTF-8)
+  * @return de bestandsgegevens of null als het bestand niet bestaat
+  */
 QString ScriptingService::readFromFile(const QString &filePath, const QString &codec)
 ```
 
@@ -1525,7 +1537,7 @@ Tekst naar een bestand schrijven
 ### Methodeaanroep en parameters
 ```cpp
 /**
- * Writes a text to a file
+ * Schrijft een tekst naar een bestand
  *
  * @param filePath {QString}
  * @param data {QString}
@@ -1553,3 +1565,71 @@ Bekijk het voorbeeld eens [websocket-server.qml](https://github.com/pbek/QOwnNot
 U kunt ook naar sockets luisteren met `WebSocket`. Kijk alstublieft naar de voorbeeld [websocket-client.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/websocket-client.qml).
 
 Onthoud dat u Qt's QML `websocket`-bibliotheek moet hebben geïnstalleerd om dit te gebruiken. U kunt bijvoorbeeld onder Ubuntu Linux installeren `qml-module-qtwebsockets`.
+
+Een markeringsregel toevoegen voor de editor
+-----------------------------------------
+
+U kunt markeringsregels rechtstreeks in de editor invoegen door reguliere expressies te definiëren en deze toe te wijzen aan een markeringsstatus.
+
+### Methodeaanroep en parameters
+```cpp
+/**
+  * Voegt een markeringsregel toe aan de syntaxismarkering van de editor
+  *
+  * @param patroon {QString} het reguliere expressiepatroon om te markeren
+  * @param shouldContain {QString} een tekenreeks die in de gemarkeerde tekst moet staan om het patroon te kunnen ontleden
+  * @param state {int} de staat van de te gebruiken syntax highlighter
+  * @param captureGroup {int} de capture-groep voor het patroon om te gebruiken voor markering (standaard: 0)
+  * @param maskedGroup {int} de vastleggroep voor het patroon om te gebruiken voor maskering (standaard: 0)
+  */
+void ScriptingService::addHighlightingRule(const QString &patroon,
+                                            const QString &shouldContain,
+                                            int staat,
+                                            int captureGroup,
+                                            int maskedGroup);
+```
+
+### Statussen markeren
+
+| Naam                       | Nr. |
+| -------------------------- | --- |
+| NoState                    | -1  |
+| Koppeling                  | 0   |
+| Afbeelding                 | 3   |
+| CodeBlock                  | 4   |
+| CodeBlockComment           | 5   |
+| Cursief                    | 7   |
+| Vet                        | 8   |
+| Lijst                      | 9   |
+| Opmerking                  | 11  |
+| H1                         | 12  |
+| H2                         | 13  |
+| H3                         | 14  |
+| H4                         | 15  |
+| H5                         | 16  |
+| H6                         | 17  |
+| BlockQuote                 | 18  |
+| HorizontalRuler            | 21  |
+| Table                      | 22  |
+| InlineCodeBlock            | 23  |
+| MaskedSyntax               | 24  |
+| CurrentLineBackgroundColor | 25  |
+| BrokenLink                 | 26  |
+| FrontmatterBlock           | 27  |
+| TrailingSpace              | 28  |
+| CheckBoxUnChecked          | 29  |
+| CheckBoxChecked            | 30  |
+| StUnderline                | 31  |
+
+### Voorbeeld
+```js
+// Markeer een tekstregel zoals "BLOCK: some text" als blockquote (status 18)
+script.addHighlightingRule("^BLOCK: (.+)", "BLOCK:", 18);
+
+// Maskeer alle tekens na 32 tekens op een regel uit (status 24)
+// captureGroup 1 betekent dat de uitdrukking van het eerste deel van het patroon tussen haakjes wordt gemarkeerd
+// maskedGroup -1 betekent dat er niet gemaskeerd moet worden
+script.addHighlightingRule("^.{32}(.+)", "", 24, 1, -1);
+```
+
+U kunt de voorbeelden ook bekijken in [markeren.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/highlighting.qml).

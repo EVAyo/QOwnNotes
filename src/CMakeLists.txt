@@ -8,6 +8,7 @@ include_directories(libraries/sonnet/src/core)
 #some hunspell settings for windows
 include(libraries/sonnet/src/plugins/hunspell/hunspell/CMakeLists.txt)
 
+add_subdirectory(libraries/md4c)
 
 add_executable(QOwnNotes "")
 
@@ -18,6 +19,24 @@ set_target_properties(QOwnNotes PROPERTIES
     AUTOUIC ON
     AUTORCC ON
 )
+
+if (UNIX)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        target_compile_options(QOwnNotes PRIVATE
+            -Wall -Wextra -pedantic -Wno-gnu-zero-variadic-macro-arguments -Wno-error=deprecated-declarations
+        )
+    else()
+        target_compile_options(QOwnNotes PRIVATE
+            -Wall -Wextra -pedantic
+        )
+    endif()
+
+    # enable werror on linux
+    if (NOT APPLE)
+        message("Werror enabled on linux")
+        target_compile_options(QOwnNotes PRIVATE -Werror)
+    endif()
+endif()
 
 target_include_directories(QOwnNotes PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}
@@ -56,7 +75,6 @@ find_package(Qt5 COMPONENTS REQUIRED
     Svg
     Network
     Xml
-    XmlPatterns
     PrintSupport
     WebSockets
     Qml
@@ -218,9 +236,6 @@ set(SOURCE_FILES
     api/tagapi.h
     api/scriptapi.cpp
     api/scriptapi.h
-    libraries/md4c/md4c/md4c.c
-    libraries/md4c/md2html/render_html.c
-    libraries/md4c/md2html/entity.c
     libraries/qmarkdowntextedit/linenumberarea.h
     libraries/qmarkdowntextedit/qownlanguagedata.cpp
     libraries/qmarkdowntextedit/qownlanguagedata.h
@@ -531,7 +546,6 @@ target_link_libraries(QOwnNotes PRIVATE
     Qt5::Svg
     Qt5::Network
     Qt5::Xml
-    Qt5::XmlPatterns
     Qt5::PrintSupport
     Qt5::WebSockets
     Qt5::Qml
@@ -539,6 +553,7 @@ target_link_libraries(QOwnNotes PRIVATE
     Botan::Botan
     fakevim
     Google::DiffMatchPatch
+    md4c-html
 )
 if(UNIX)
     target_link_libraries(QOwnNotes PRIVATE

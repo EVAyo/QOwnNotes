@@ -96,6 +96,6 @@ Einige Segmente, die wir in der Dokumentation nicht übersetzen:
 
 Sie setzen sich mit der Sprache dieser Software auseinander, lernen neue Begriffe und erhalten viele Insider-Informationen rund um das Projekt.
 
-Wenn Sie also bereit sind, beim Korrekturlesen der Übersetzung Ihrer Sprache mitzuhelfen, begrüßt Sie [Amy Fabijenna](https://crowdin.com/profile/rawfreeamy) zu einer kurzen Einführung in die Praxis des Übersetzens und des Korrekturlesens. Du kannst sie alles fragen, was dir dabei hilft, Spaß am Beitragen zu haben.
+Wenn Sie also bereit sind, beim Korrekturlesen der Übersetzung in Ihrer Sprache zu helfen, wenden Sie sich an [Patrizio](https://crowdin.com/profile/pbek) und fragen Sie nach, wenn Sie Fragen haben und/oder die Rechte für das Korrekturlesen in Ihrer Muttersprache erhalten möchten.
 
 Vielen Dank für Deine Hilfe! 🙂

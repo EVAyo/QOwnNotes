@@ -1,17 +1,17 @@
 # Parámetros de la interfaz de línea de comandos
 
-Puede utilizar estos parámetros en la interfaz de línea de comandos:
+Puede utilizar estos parámetros en la interfaz de línea de comandos (CLI) para controlar el comportamiento de la aplicación:
 
-| Parámetro                    | Descripción                                                                                                                                |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--help`                     | Muestra la pantalla de ayuda                                                                                                               |
-| `--version`                  | Prints out the version number of the application                                                                                           |
-| `--portable`                 | Runs the application in portable mode                                                                                                      |
-| `--clear-settings`           | Clears the settings and runs the application                                                                                               |
-| `--dump-settings`            | Prints out a dump of the settings and other information about the application and environment in GitHub Markdown and exits the application |
-| `--session <name>`     | Runs the application in a different context for settings and internal files                                                                |
-| `--allow-multiple-instances` | Allows multiple instances of QOwnNotes to be started even if disallowed in the settings                                                    |
-| `--action <name>`      | Triggers a menu action after the application was started (see below)                                                                       |
+| Parámetro                    | Descripción                                                                                                                               |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `--help`                     | Muestra la pantalla de ayuda                                                                                                              |
+| `--version`                  | Imprime el número de versión de la aplicación                                                                                             |
+| `--portable`                 | Ejecuta la aplicación en modo portable                                                                                                    |
+| `--clear-settings`           | Borra los ajustes y ejecuta la aplicación                                                                                                 |
+| `--dump-settings`            | Imprime un volcado de la configuración y otra información sobre la aplicación y el entorno en markdown de GitHub, y sale de la aplicación |
+| `--session <name>`     | Ejecuta la aplicación en un contexto diferente para la configuración y archivos internos                                                  |
+| `--allow-multiple-instances` | Permite iniciar varias instancias de QOwnNotes aunque no esté permitido en la configuración                                               |
+| `--action <name>`      | Activa una acción de menú después de que se inició la aplicación (vea abajo)                                                              |
 
 ::: tip
 Si tiene problemas con la instalación de QOwnNotes, es posible que desee iniciar la aplicación con una configuración nueva sin perder la configuración actual mediante el parámetro `--session`.

@@ -21,6 +21,10 @@ QtObject {
 
         // create a menu entry to transform text with rot13
         script.registerCustomAction("transformTextRot13", "Transform selected text with rot13", "rot13", "text-wrap", true);
+
+        script.registerCustomAction("noteSubFolder", "Show active note subfolder information", "Subfolder");
+
+        script.registerCustomAction("setActiveTag", "Set active tag", "Active tag");
     }
 
     /**
@@ -73,6 +77,19 @@ QtObject {
                 });
 
                 script.noteTextEditWrite(text);
+                break;
+
+            case "noteSubFolder":
+                var noteSubFolderQmlObj = Qt.createQmlObject("import QOwnNotesTypes 1.0; NoteSubFolder{}", mainWindow, "noteSubFolder");
+                var subFolder = noteSubFolderQmlObj.activeNoteSubFolder();
+                script.log(subFolder.fullPath());
+                script.log(subFolder.relativePath());
+                break;
+
+            // jump to the tag "test" in the tag tree
+            case "setActiveTag":
+                var tag = script.getTagByNameBreadcrumbList(["test"]);
+                mainWindow.jumpToTag(tag.id);
                 break;
         }
     }

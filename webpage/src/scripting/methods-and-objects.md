@@ -106,7 +106,7 @@ Getting the current note
 /**
  * QML wrapper to get the current note
  *
- * @returns {NoteApi} the the current note object
+ * @returns {NoteApi} the current note object
  */
 NoteApi currentNote();
 ```
@@ -378,7 +378,7 @@ script.registerLabel("long-label", "another very long text, another very long te
 script.registerLabel("counter-label");
 ```
 
-The labels will be visible in the scripting dock widget.
+The labels will be visible in the *Scripting panel*, which you need to enable in the *Window / Panels* menu.
 
 You can use both plain text or html in the labels. The text will be
 selectable and links can be clicked.
@@ -554,7 +554,7 @@ Select the current word in the note text edit
 ### Method call and parameters
 ```cpp
 /**
- * Selects the current line in the note text edit
+ * Selects the current word in the note text edit
  */
 void ScriptingService::noteTextEditSelectCurrentWord();
 ```
@@ -974,14 +974,18 @@ Jumping to a note
  * Sets the current note if the note is visible in the note list
  *
  * @param note NoteApi note to jump to
+ * @param asTab bool if true the note will be opened in a new tab (if not already open)
  */
-void ScriptingService::setCurrentNote(NoteApi *note);
+void ScriptingService::setCurrentNote(NoteApi *note, bool asTab = false);
 ```
 
 ### Example
 ```js
 // jump to the note
 script.setCurrentNote(note);
+
+// open note in new tab (if not already open)
+script.setCurrentNote(note, true);
 ```
 
 You may want to take a look at the example
@@ -1137,6 +1141,7 @@ property bool myBoolean;
 property string myText;
 property int myInt;
 property string myFile;
+property string myDirectory;
 property string mySelection;
 
 // register your settings variables so the user can set them in the script settings
@@ -1180,6 +1185,13 @@ property variant settingsVariables: [
         "description": "Please select the file:",
         "type": "file",
         "default": "pandoc",
+    },
+    {
+        "identifier": "myDirectory",
+        "name": "I am a directory selector",
+        "description": "Please select the directory:",
+        "type": "directory",
+        "default": "/home",
     },
     {
         "identifier": "mySelection",
@@ -1632,3 +1644,73 @@ example
 Keep in mind that you need to have Qt's QML `websocket` library
 installed to use this. For example under Ubuntu Linux you can install
 `qml-module-qtwebsockets`.
+
+Adding a highlighting rule for the editor
+-----------------------------------------
+
+You can directly inject highlighting rules into the editor by defining regular
+expressions and assigning them to a highlighting state.
+
+### Method call and parameters
+```cpp
+/**
+ * Adds a highlighting rule to the syntax highlighter of the editor
+ *
+ * @param pattern {QString} the regular expression pattern to highlight
+ * @param shouldContain {QString} a string that must be contained in the highlighted text for the pattern to be parsed
+ * @param state {int} the state of the syntax highlighter to use
+ * @param capturingGroup {int} the capturing group for the pattern to use for highlighting (default: 0)
+ * @param maskedGroup {int} the capturing group for the pattern to use for masking (default: 0)
+ */
+void ScriptingService::addHighlightingRule(const QString &pattern,
+                                           const QString &shouldContain,
+                                           int state,
+                                           int capturingGroup,
+                                           int maskedGroup);
+```
+
+### Highlighting states
+
+| Name                       | Nr. |
+| -------------------------- |-----|
+| NoState                    | -1  |
+| Link                       | 0   |
+| Image                      | 3   |
+| CodeBlock                  | 4   |
+| CodeBlockComment           | 5   |
+| Italic                     | 7   |
+| Bold                       | 8   |
+| List                       | 9   |
+| Comment                    | 11  |
+| H1                         | 12  |
+| H2                         | 13  |
+| H3                         | 14  |
+| H4                         | 15  |
+| H5                         | 16  |
+| H6                         | 17  |
+| BlockQuote                 | 18  |
+| HorizontalRuler            | 21  |
+| Table                      | 22  |
+| InlineCodeBlock            | 23  |
+| MaskedSyntax               | 24  |
+| CurrentLineBackgroundColor | 25  |
+| BrokenLink                 | 26  |
+| FrontmatterBlock           | 27  |
+| TrailingSpace              | 28  |
+| CheckBoxUnChecked          | 29  |
+| CheckBoxChecked            | 30  |
+| StUnderline                | 31  |
+
+### Example
+```js
+// Highlight a text line like "BLOCK: some text" as blockquote (state 18)
+script.addHighlightingRule("^BLOCK: (.+)", "BLOCK:", 18);
+
+// Mask out (state 24) all characters after 32 characters in a line
+// capturingGroup 1 means the expression from the first bracketed part of the pattern will be highlighted
+// maskedGroup -1 means that no masking should be done
+script.addHighlightingRule("^.{32}(.+)", "", 24, 1, -1);
+```
+
+You can also take a look at the examples in
+[highlighting.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/highlighting.qml).

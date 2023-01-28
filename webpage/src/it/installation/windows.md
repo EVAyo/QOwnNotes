@@ -20,10 +20,14 @@ Non hai bisogno della modalità portatile se non disponi delle autorizzazioni di
 
 Qt ha abbandonato il supporto per Windows XP con la versione 5.8, ma QOwnNotes usa ancora Qt 5.7 per consentire agli utenti di Windows XP di utilizzarlo.
 
-Se stai cercando  l'ultimo master build su [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/history), scegli l'*ambiente Qt 5.7* e scaricane l'*artefatto*.
+Devi scaricare il file Zip da [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/build/artifacts) da solo e estrarlo in una cartella che preferisci.
 
-::: tip Info
-Il meccanismo di aggiornamento automatico non funziona con la build AppVeyor per Windows XP! Dovrai scaricare tu le nuove versioni.
+Puoi eseguire direttamente `QOwnNotes.exe` da quella cartella, non è richiesta alcuna installazione.
+
+::: tip
+Info
+Il meccanismo di aggiornamento automatico non funziona con la build AppVeyor per Windows XP!
+Dovrai scaricare tu le nuove versioni.
 :::
 
 ## Chocolatey

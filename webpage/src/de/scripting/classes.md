@@ -53,24 +53,36 @@ class NoteSubFolderApi {
     Q_PROPERTY(QString name)
     Q_PROPERTY(QQmlListProperty<NoteApi> notes)
     Q_INVOKABLE static NoteSubFolderApi *fetchNoteSubFolderById(int id);
+    Q_INVOKABLE static NoteSubFolderApi *activeNoteSubFolder();
     Q_INVOKABLE static QList<QObject*> fetchNoteSubFoldersByParentId(int parentId);
+    Q_INVOKABLE QString relativePath();
+    Q_INVOKABLE QString fullPath();
 };
 ```
 
 ### Beispiel
 ```js
-script.log (noteSubFolder.id);
-script.log (noteSubFolder.name);
+var noteSubFolderQmlObj = Qt.createQmlObject("import QOwnNotesTypes 1.0; NoteSubFolder{}", mainWindow, "noteSubFolder");
 
-// Notizen im Unterordner durchlaufen
-für (var idx in noteSubFolder.notes) {
-     var note = noteSubFolder.notes [idx];
-}}
-
-// Alle Unterordnernamen drucken
-noteSubFolder.fetchNoteSubFoldersByParentId (parentId).forEach (function (nsf) {
-     script.log (nsf.name);
+// print all subfolder names
+noteSubFolderQmlObj.fetchNoteSubFoldersByParentId(parentId).forEach(function(nsf) {
+    script.log(nsf.name);
 });
+
+// get the active note subfolder
+var noteSubFolder = noteSubFolderQmlObj.activeNoteSubFolder();
+
+// print the full and relative path of the active note subfolder
+script.log(noteSubFolder.fullPath());
+script.log(noteSubFolder.relativePath());
+
+script.log(noteSubFolder.id);
+script.log(noteSubFolder.name);
+
+// iterate through notes in note subfolder
+for (var idx in noteSubFolder.notes) {
+    var note = noteSubFolder.notes[idx];
+}
 ```
 
 Schlagwort
@@ -82,10 +94,29 @@ class TagApi {
     Q_PROPERTY(int id)
     Q_PROPERTY(QString name)
     Q_PROPERTY(int parentId)
+    Q_PROPERTY(QQmlListProperty<NoteApi> notes)
     Q_INVOKABLE TagApi fetchByName(const QString &name, int parentId = 0)
     Q_INVOKABLE QStringList getParentTagNames()
 };
 ```
+
+### Beispiel
+```js
+// Vergessen Sie nicht, "import QOwnNotesTypes 1.0" am Anfang Ihres Skripts zu verwenden!
+
+// Fetch tag "home"
+var tag = script.getTagByNameBreadcrumbList(["home"]);
+// Fetch all notes tagged with the tag
+var notes = tag.notes;
+
+// Iterate through notes of the tag
+for (var idx in notes) {
+    var note = notes[idx];
+    script.log(note.name);
+}
+```
+
+You'll find more examples where TagApi is used in [note-tagging-by-object.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/note-tagging-by-object.qml).
 
 HauptFenster
 ----------
@@ -113,34 +144,40 @@ class MainWindow {
     Q_INVOKABLE QString getWorkspaceUuid(const QString &workspaceName);
     // Sets the current workspace by UUID
     Q_INVOKABLE void setCurrentWorkspace(const QString &uuid);
+    // Closes a note tab on a specific index (returns true if successful)
+    Q_INVOKABLE bool removeNoteTab(int index);
+    // Returns a list of note ids that are opened in tabs
+    Q_INVOKABLE QList<int> getNoteTabNoteIdList();
+    // Jumps to a tag in the tag tree
+    Q_INVOKABLE bool jumpToTag(int tagId);
 };
 ```
 
 ### Beispiel
 ```js
-// Erzwingt ein Neuladen der Notizliste
+// Force a reload of the note list
 mainWindow.buildNotesIndexAndLoadNoteDirectoryList(true, true);
 
-// Erstellt einen neuen Notiz-Unterordner "Mein schicker Ordner" im aktuellen Unterordner
+// Creates a new note subfolder "My fancy folder" in the current subfolder
 mainWindow.createNewNoteSubFolder("My fancy folder");
 
-// Fügt HTML als Markdown in die aktuelle Notiz ein
+// Inserts html in the current note as markdown
 mainWindow.insertHtmlAsMarkdownIntoCurrentNote("<h2>my headline</h2>some text");
 
-// Legt Arbeitsbereich 'Bearbeiten' als aktuellen Arbeitsbereich fest
+// Set 'Edit' workspace as current workspace
 mainWindow.setCurrentWorkspace(mainWindow.getWorkspaceUuid("Edit"));
 
+// Jump to the tag "test" in the tag tree
+// There is an example in https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/custom-actions.qml
+var tag = script.getTagByNameBreadcrumbList(["test"]);
+mainWindow.jumpToTag(tag.id);
 
+// Get all notes that are opened in tabs
+var noteIds = mainWindow.getNoteTabNoteIdList();
+noteIds.forEach(function (noteId){
+    var note = script.fetchNoteById(noteId);
 
+    // do something with the note
+});
 
-mainWindow.buildNotesIndexAndLoadNoteDirectoryList(true, true);
-
-// Erstellt einen neuen Notiz-Unterordner "Mein schicker Ordner" im aktuellen Unterordner
-mainWindow.createNewNoteSubFolder("Mein ausgefallener Ordner");
-
-// Fügt HTML als Markdown in die aktuelle Notiz ein
-mainWindow.insertHtmlAsMarkdownIntoCurrentNote("<0>meine Überschrift</0>etwas Text");
-
-
-mainWindow.setCurrentWorkspace(mainWindow.getWorkspaceUuid("Bearbeiten"));
 ```

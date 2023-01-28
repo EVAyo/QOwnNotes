@@ -22,3 +22,7 @@ Dopodiché, dovresti essere in grado di eseguire l'AppImage per lanciare QOwnNot
 ::: warning
 Se vuoi usare l'**aggiornamento automatico** assicurati di mettere il tuo AppImage in un punto in cui il tuo account utente ha accesso in scrittura, come per esempio da qualche parte nella tua cartella home.
 :::
+
+::: tip
+Se hai problemi e eseguire AppImage, perché la versione della tua glibc è troppo vecchia, puoi provare [AppImage costruita su OBS](https://download.opensuse.org/repositories/home:/pbek:/QOwnNotes/AppImage/QOwnNotes-latest-x86_64.AppImage), dovrebbe essere costruita con glibc 2.16.
+:::

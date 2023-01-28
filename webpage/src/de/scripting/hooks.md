@@ -172,19 +172,18 @@ handleNewNoteHeadlineHook
 
 
 ```js
-/ **
+/**
   * Diese Funktion wird aufgerufen, bevor eine Notiz erstellt wird
-  * *
-  * Hier können Sie die Überschrift der Notiz ändern, bevor sie erstellt wird
-  * Beachten Sie, dass Sie sich ansonsten um einen eindeutigen Notennamen kümmern müssen
-  * Die neue Notiz wird nicht erstellt, sondern nur in der Notizliste angezeigt
-  * *
-  * Mit dieser Methode können Sie Notizvorlagen erstellen
-  * *
+  *
+  * Sie können die Überschrift der Notiz ändern, bevor sie erstellt wird
+  * Beachten Sie, dass Sie ansonsten auf einen eindeutigen Notennamen achten müssen
+  * Die neue Notiz wird nicht erstellt, sondern nur in der Notizliste gefunden
+  *
+  * Sie können diese Funktion zum Erstellen von Notizvorlagen verwenden
+  *
   * @param Überschriftentext, der zum Erstellen der Überschrift verwendet wird
-  * @return {string} die Überschrift der Notiz
-  * /
-Funktion handleNewNoteHeadlineHook (Überschrift);
+ */
+function handleNewNoteHeadlineHook(headline);
 ```
 
 
@@ -206,19 +205,19 @@ preNoteToMarkdownHtmlHook
 /**
   * Diese Funktion wird aufgerufen, bevor das Markdown-HTML einer Notiz generiert wird
   *
-  * Hier können Sie ändern, was an den Markdown-to-HTML-Konverter übergeben wird
+  * Sie können ändern, was an den Markdown-zu-HTML-Konverter übergeben wird
   *
-  * Die Methode kann beispielsweise in mehreren Skripten zum Rendern von Code verwendet werden (wie LaTeX-Mathematik oder Meerjungfrau).
+  * Die Funktion kann zum Beispiel in mehreren Skripten verwendet werden, um Code zu rendern (wie LaTeX math oder meermaid)
   * zu seiner grafischen Darstellung für die Vorschau
   *
-  * Der Hinweis wird dabei nicht geändert
+  * Die Notiz wird dabei nicht verändert
   *
   * @param {NoteApi} note - das Notizobjekt
-  * @param {string} markdown - der Markdown, der in HTML konvertiert werden soll
-  * @param {string} forExport - true, wenn der HTML-Code für einen Export verwendet wird, false für die Vorschau
-  * @return {string} der geänderte Markdown oder eine leere Zeichenfolge, wenn nichts geändert werden soll
+  * @param {string} Markdown - der Markdown, der gerade in HTML konvertiert wird
+  * @param {bool} forExport - true, wenn das HTML für einen Export verwendet wird, false für die Vorschau
+  * @return {string} der geänderte Markdown oder ein leerer String, wenn nichts geändert werden soll
   */
-function preNoteToMarkdownHtmlHook(note, markdown, forExport);
+Funktion preNoteToMarkdownHtmlHook(note, markdown, forExport);
 ```
 
 
@@ -240,17 +239,17 @@ noteToMarkdownHtmlHook
 /**
   * Diese Funktion wird aufgerufen, wenn das Markdown-HTML einer Notiz generiert wird
   *
-  * Sie können dieses HTML ändern
-  * Dies wird zum Beispiel zuvor von der Notenvorschau aufgerufen
+  * Sie können diesen HTML-Code ändern
+  * Dies wird beispielsweise zuvor von der Notenvorschau aufgerufen
   *
-  * Die Methode kann in mehreren Skripten verwendet werden, um das HTML der Vorschau zu ändern
+  * Die Funktion kann in mehreren Skripten verwendet werden, um das HTML der Vorschau zu ändern
   *
   * @param {NoteApi} note - das Notizobjekt
   * @param {string} html - das HTML, das gerendert werden soll
-  * @param {string} forExport - true, wenn der HTML-Code für einen Export verwendet wird, false für die Vorschau
-  * @return {string} das geänderte HTML oder eine leere Zeichenfolge, wenn nichts geändert werden soll
+  * @param {bool} forExport - true, wenn das HTML für einen Export verwendet wird, false für die Vorschau
+  * @return {string} der geänderte HTML-Code oder ein leerer String, wenn nichts geändert werden soll
   */
-function noteToMarkdownHtmlHook(note, html, forExport);
+Funktion noteToMarkdownHtmlHook(note, html, forExport);
 ```
 
 
@@ -326,7 +325,7 @@ function noteTaggingHook (note, action, tagName, newTagName);
   
       -   importieren Sie zunächst Tags wie `@tag` aus Ihren Notizen und überschreiben Sie Ihre aktuelle Tag-Zuweisung
       
-              -   Sie werden Ihren Tag-Baum nicht verlieren, sondern nur die frühere Zuordnung zu Notizen
+              -   Sie werden Ihren Schlagworte-Baum nicht verlieren, sondern nur die frühere Zuordnung zu Notizen
 
         -   Sie können Tags weiterhin in andere Tags verschieben
 
@@ -496,3 +495,30 @@ Funktion windowStateChangedHook (windowState);
 
 
 Vielleicht möchten Sie sich das Beispiel ansehen [window-state-changed.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/window-state-changed.qml).
+
+
+
+
+
+workspaceSwitchedHook
+----------------------
+
+Dieser Hook wird aufgerufen, wenn Workspaces gewechselt werden.
+
+
+
+### Methodenaufruf und Parameter
+
+
+```js
+/**
+ * Diese Funktion wird aufgerufen, wenn Workspaces umgeschaltet werden
+ *
+ * @param oldUuid old uuid of workspace
+ * @param newUuid new uuid of workspace
+ */
+function workspaceSwitchedHook(oldUuid, newUuid);
+```
+
+
+Vielleicht möchten Sie sich das Beispiel ansehen [websocket-raw-data-new-note.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/workspaces.qml).

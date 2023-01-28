@@ -69,6 +69,7 @@ const scriptingNavItems = [
 
 const contributingNavItems = [
   'contributing/get-involved',
+  'contributing/code-of-conduct',
   'contributing/maintainers',
   'contributing/translation',
   'contributing/donate',
@@ -154,6 +155,14 @@ module.exports = {
       lang: 'hu-HU',
       title: 'QOwnNotes',
     },
+    '/ar/': {
+      lang: 'ar-AR',
+      title: 'QOwnNotes',
+    },
+    '/pl/': {
+      lang: 'pl-PL',
+      title: 'QOwnNotes',
+    },
   },
 
   /**
@@ -175,7 +184,7 @@ module.exports = {
     locales: {
       '/': {
         // text for the language dropdown
-        selectText: 'Languages',
+        selectText: '🌍',
         // label for this locale in the language dropdown
         label: 'English',
         // Aria Label for locale in the dropdown
@@ -197,15 +206,6 @@ module.exports = {
           {
             text: 'Installation',
             link: installationNavItem,
-          },
-          {
-            text: 'Blog',
-            link: '/blog/',
-          },
-          {
-            text: 'Changelog',
-            link: changelogNavItem,
-            collapsable: true,
           },
           {
             text: 'Contact',
@@ -245,11 +245,15 @@ module.exports = {
           {
             title: 'Blog',
             children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'Changelog',
+            children: [ changelogNavItem ]
           }
         ]
       },
       '/de/': {
-        selectText: 'Sprachen',
+        selectText: '🌍',
         label: 'Deutsch',
         editLinkText: 'Hilf uns diese Seite zu verbessern!',
         algolia: {
@@ -264,11 +268,6 @@ module.exports = {
           {
             text: 'Installation',
             link: utils.getNavItemForLanguage(installationNavItem, 'de'),
-          },
-          {
-            text: 'Änderungsprotokoll',
-            link: changelogNavItem,
-            collapsable: true,
           },
           {
             text: 'Kontakt',
@@ -304,11 +303,19 @@ module.exports = {
           {
             title: 'FAQ',
             children: utils.getNavItemsForLanguage(faqNavItems, "de")
+          },
+          {
+            title: 'Blog (auf Englisch)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'Änderungsprotokoll (auf Englisch)',
+            children: [ changelogNavItem ]
           }
         ]
       },
       '/es/': {
-        selectText: 'Idiomas',
+        selectText: '🌍',
         label: 'Español',
         editLinkText: '¡Ayúdanos a mejorar este sitio!',
         algolia: {
@@ -323,11 +330,6 @@ module.exports = {
           {
             text: 'Instalación',
             link: utils.getNavItemForLanguage(installationNavItem, 'es'),
-          },
-          {
-            text: 'Registro de cambios',
-            link: changelogNavItem,
-            collapsable: true,
           },
           {
             text: 'Contacto',
@@ -363,11 +365,19 @@ module.exports = {
           {
             title: 'FAQ',
             children: utils.getNavItemsForLanguage(faqNavItems, "es")
+          },
+          {
+            title: 'Blog (en inglés)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'Registro de cambios (en inglés)',
+            children: [ changelogNavItem ]
           }
         ]
       },
       '/hu/': {
-        selectText: 'Nyelvek',
+        selectText: '🌍',
         label: 'Magyar',
         editLinkText: 'Segítsen javítani ezt az oldalt!',
         algolia: {
@@ -382,11 +392,6 @@ module.exports = {
           {
             text: 'Telepítés',
             link: utils.getNavItemForLanguage(installationNavItem, 'hu'),
-          },
-          {
-            text: 'Változások',
-            link: changelogNavItem,
-            collapsable: true,
           },
           {
             text: 'Kapcsolat',
@@ -422,11 +427,19 @@ module.exports = {
           {
             title: 'FAQ',
             children: utils.getNavItemsForLanguage(faqNavItems, "hu")
+          },
+          {
+            title: 'Blog (angolul)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'Változások (angolul)',
+            children: [ changelogNavItem ]
           }
         ]
       },
        '/fr/': {
-        selectText: 'Langues',
+        selectText: '🌍',
         label: 'Français',
         editLinkText: 'Aidez-nous à améliorer ce site!',
          algolia: {
@@ -441,11 +454,6 @@ module.exports = {
           {
             text: 'Installation',
             link: utils.getNavItemForLanguage(installationNavItem, 'fr'),
-          },
-          {
-            text: 'Changelog',
-            link: changelogNavItem,
-            collapsable: true,
           },
           {
             text: 'Contact',
@@ -481,11 +489,19 @@ module.exports = {
           {
             title: 'FAQ',
             children: utils.getNavItemsForLanguage(faqNavItems, "fr")
+          },
+          {
+            title: 'Blog (en anglais)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'Changelog (en anglais)',
+            children: [ changelogNavItem ]
           }
         ]
       },
       '/it/': {
-        selectText: 'Lingue',
+        selectText: '🌍',
         label: 'Italiano',
         editLinkText: 'Aiutaci a migliorare questo sito!',
         algolia: {
@@ -500,11 +516,6 @@ module.exports = {
           {
             text: 'Installazione',
             link: utils.getNavItemForLanguage(installationNavItem, 'it'),
-          },
-          {
-            text: 'Log delle modifiche',
-            link: changelogNavItem,
-            collapsable: true,
           },
           {
             text: 'Contatto',
@@ -540,11 +551,19 @@ module.exports = {
           {
             title: 'FAQ',
             children: utils.getNavItemsForLanguage(faqNavItems, "it")
+          },
+          {
+            title: 'Blog (in inglese)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'Log delle modifiche (in inglese)',
+            children: [ changelogNavItem ]
           }
         ]
       },
       '/fa/': {
-        selectText: 'زبان ها',
+        selectText: '🌍',
         label: 'فارسی',
         editLinkText: 'در اصلاح این صفحه ما را یاری کنید!',
         algolia: {
@@ -559,11 +578,6 @@ module.exports = {
           {
             text: 'نصب',
             link: utils.getNavItemForLanguage(installationNavItem, 'fa'),
-          },
-          {
-            text: 'گزارش تغییرات',
-            link: changelogNavItem,
-            collapsable: true,
           },
           {
             text: 'تماس',
@@ -599,11 +613,19 @@ module.exports = {
           {
             title: 'سؤالات متداول',
             children: utils.getNavItemsForLanguage(faqNavItems, 'fa')
+          },
+          {
+            title: 'وبلاگ (به انگلیسی)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'گزارش تغییرات (به انگلیسی)',
+            children: [ changelogNavItem ]
           }
         ]
       },
       '/nl/': {
-        selectText: 'Talen',
+        selectText: '🌍',
         label: 'Nederlands',
         editLinkText: 'Help ons deze pagina te verbeteren!',
         algolia: {
@@ -618,11 +640,6 @@ module.exports = {
           {
             text: 'Installatie',
             link: utils.getNavItemForLanguage(installationNavItem, 'nl'),
-          },
-          {
-            text: 'Changelog',
-            link: changelogNavItem,
-            collapsable: true,
           },
           {
             text: 'Contact',
@@ -658,6 +675,138 @@ module.exports = {
           {
             title: 'FAQ',
             children: utils.getNavItemsForLanguage(faqNavItems, "nl")
+          },
+          {
+            title: 'Blog (in het Engels)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'Changelog (in het Engels)',
+            children: [ changelogNavItem ]
+          }
+        ]
+      },
+      '/pl/': {
+        selectText: '🌍',
+        label: 'Polski',
+        editLinkText: 'Pomóż nam ulepszyć tę stronę!',
+        algolia: {
+          apiKey: '35f878f4b712d5ab6a659eb0a6c71576',
+          indexName: 'qownnotes'
+        },
+        nav: [
+          {
+            text: 'Pierwsze kroki',
+            link: utils.getNavItemForLanguage(gettingStartedNavItem, 'pl'),
+          },
+          {
+            text: 'Instalacja',
+            link: utils.getNavItemForLanguage(installationNavItem, 'pl'),
+          },
+          {
+            text: 'Kontakt',
+            ariaLabel: 'Contact Menu',
+            items: contactNavItems
+          },
+          {
+            text: 'Wpłać',
+            link: utils.getNavItemForLanguage(donateNavItem, 'pl'),
+          }
+        ],
+        sidebar: [
+          {
+            title: 'Pierwsze kroki',
+            children: utils.getNavItemsForLanguage(gettingStartedNavItems, 'pl')
+          },
+          {
+            title: 'Instalacja',
+            children: utils.getNavItemsForLanguage(installationNavItems, 'pl')
+          },
+          {
+            title: 'Editor',
+            children: utils.getNavItemsForLanguage(editorNavItems, 'pl')
+          },
+          {
+            title: 'Skrypty',
+            children: utils.getNavItemsForLanguage(scriptingNavItems, 'pl')
+          },
+          {
+            title: 'Wkład',
+            children: utils.getNavItemsForLanguage(contributingNavItems, 'pl')
+          },
+          {
+            title: 'FAQ',
+            children: utils.getNavItemsForLanguage(faqNavItems, 'pl')
+          },
+          {
+            title: 'Blog (auf Englisch)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'Lista zmian (po angielsku)',
+            children: [ changelogNavItem ]
+          }
+        ]
+      },
+      '/ar/': {
+        selectText: '🌍',
+        label: 'العربية',
+        editLinkText: 'ساعدنا في تحسين هذه الصفحة!',
+        algolia: {
+          apiKey: '35f878f4b712d5ab6a659eb0a6c71576',
+          indexName: 'qownnotes'
+        },
+        nav: [
+          {
+            text: 'بدء الاستخدام',
+            link: utils.getNavItemForLanguage(gettingStartedNavItem, 'ar'),
+          },
+          {
+            text: 'التثبيت',
+            link: utils.getNavItemForLanguage(installationNavItem, 'ar'),
+          },
+          {
+            text: 'تواصل',
+            ariaLabel: 'Contact Menu',
+            items: contactNavItems
+          },
+          {
+            text: 'تبرع',
+            link: utils.getNavItemForLanguage(donateNavItem, 'ar'),
+          }
+        ],
+        sidebar: [
+          {
+            title: 'بدء الاستخدام',
+            children: utils.getNavItemsForLanguage(gettingStartedNavItems, 'ar')
+          },
+          {
+            title: 'التثبيت',
+            children: utils.getNavItemsForLanguage(installationNavItems, 'ar')
+          },
+          {
+            title: 'المحرر',
+            children: utils.getNavItemsForLanguage(editorNavItems, 'ar')
+          },
+          {
+            title: 'البرمجة',
+            children: utils.getNavItemsForLanguage(scriptingNavItems, 'ar')
+          },
+          {
+            title: 'مساهمة',
+            children: utils.getNavItemsForLanguage(contributingNavItems, 'ar')
+          },
+          {
+            title: 'أسئلة شائعة',
+            children: utils.getNavItemsForLanguage(faqNavItems, 'ar')
+          },
+          {
+            title: 'المدونة (بالإنجليزية)',
+            children: utils.getChildren('src', 'blog', true)
+          },
+          {
+            title: 'سجل التغييرات (بالإنجليزية)',
+            children: [ changelogNavItem ]
           }
         ]
       }

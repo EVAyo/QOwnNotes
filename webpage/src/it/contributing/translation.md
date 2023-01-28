@@ -96,6 +96,6 @@ Alcune parti della documentazione non vanno tradotte:
 
 Avrai a che fare con il linguaggio di questa applicazione, imparerai nuovi termini e riceverai tante informazioni interne riguardanti il progetto.
 
-Se sei pronto ad aiutare a verificare le traduzioni nella tua lingua, [Amy Fabijenna](https://crowdin.com/profile/rawfreeamy) ti darà il benvenuto in un breve incontro sulla pratica della traduzione e della correzione di bozze. Puoi chiederle quello di cui hai bisogno per renderti divertente contribuire.
+Se quindi sei pronto per aiutare a correggere la traduzione nella tua lingua, contatta [Patrizio](https://crowdin.com/profile/pbek) e chiedi se hai domande e per ottenere i permessi di correzione nella tua lingua madre.
 
 Grazie mille per il tuo aiuto! 🙂

@@ -22,3 +22,7 @@ chmod a+x QOwnNotes-*.AppImage
 ::: warning
 در صورت تمایل به استفاده از **بروز رسان خودکار**، لطفاً مطمئن شوید که AppImage خود را در جایی که حساب کاربری شما به آن دسترسی نوشتاری دارد (مثلاً در فهرست شخصی)، قرار دهید.
 :::
+
+::: tip
+در صورت بروز مشکل در اجرای AppImage، به دلیل بسیار قدیمی بودن نسخه glibc شما، [AppImage built on OBS](https://download.opensuse.org/repositories/home:/pbek:/QOwnNotes/AppImage/QOwnNotes-latest-x86_64.AppImage) که بایستی با glibc 2.16 ایجاد شود را می‌توانید امتحان کنید.
+:::

@@ -1221,6 +1221,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="menuEditor_width"/>
     <addaction name="separator"/>
     <addaction name="actionToggle_fullscreen"/>
+    <addaction name="actionToggle_Always_on_top"/>
     <addaction name="separator"/>
     <addaction name="action_Increase_note_text_size"/>
     <addaction name="action_Decrease_note_text_size"/>
@@ -2553,7 +2554,8 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="icon">
     <iconset theme="tools-check-spelling">
-     <normaloff>.</normaloff>.</iconset>
+     <normalon>:/icons/breeze-qownnotes/16x16/tools-check-spelling.svg</normalon>
+    </iconset>
    </property>
    <property name="text">
     <string>Check spelling</string>
@@ -2680,6 +2682,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Import notes from Joplin</string>
+   </property>
+  </action>
+  <action name="actionToggle_Always_on_top">
+   <property name="text">
+    <string>Toggle always-on-top mode</string>
    </property>
   </action>
  </widget>

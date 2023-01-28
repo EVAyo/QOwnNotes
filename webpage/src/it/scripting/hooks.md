@@ -169,17 +169,16 @@ handleNewNoteHeadlineHook
 ### Chiamata al metodo e parametri
 ```js
 /**
- * Questa funzione è chiamata prima della creazione di una nota
- *
- * Permette di modificare l'intestazione della nota prima che sia creata
- * nota che devi preoccuparti che il nome della nota sia univoco,
- * altrimenti la nuova nota non sarà creata ma sarà semplicemente
- * disponibile nell'elenco delle note
- *
- * Puoi usare questo metodo per creare modelli di note
- *
- * @param headline testo che deve essere usato per creare l'intestazione
- * @return {string} il titolo della nota
+  * Questa funzione viene chiamata prima della creazione di una nota
+  *
+  * Ti permette di modificare il titolo della nota prima che venga creata
+  * Nota che devi prenderti cura di un nome di nota univoco, altrimenti
+  * la nuova nota non verrà creata, sarà solo trovata nell'elenco delle note
+  *
+  * È possibile utilizzare questa funzione per creare modelli di note
+  *
+ * @param headline text that would be used to create the headline
+ * @return {string} the headline of the note
  */
 function handleNewNoteHeadlineHook(headline);
 ```
@@ -192,26 +191,20 @@ preNoteToMarkdownHtmlHook
 ### Chiamata al metodo e parametri
 ```js
 /**
- * Questa funzione viene chiamata prima che venga generato l'html
- * markdown di una nota
- *
- * Ti consente di modificare ciò che viene passato al convertitore
- * markdown in html
- *
- * Il metodo può essere utilizzato ad esempio in più script per eseguire
- * il rendering del codice (come LaTeX math o mermaid) nella sua
- * rappresentazione grafica per l'anteprima
- *
- * La nota non verrà modificata in questo processo
- *
- * @param {NoteApi} note - l'oggetto nota
- * @param {string} markdown - il markdown che sta per essere convertito
- *                            in html
- * @param {string} forExport - true se l'html viene usato per
- *                             un'esportazione, false per l'anteprima
- * @return {string} il markdown modificato o una stringa vuota se non si
- *                  deve modificare nulla
- */
+  * Questa funzione viene chiamata prima che venga generato il markdown html di una nota
+  *
+  * Ti permette di modificare ciò che viene passato al convertitore markdown in html
+  *
+  * La funzione può ad esempio essere utilizzata in più script per il rendering del codice (come LaTeX math o mermaid)
+  * alla sua rappresentazione grafica per l'anteprima
+  *
+  * La nota non verrà modificata in questo processo
+  *
+  * @param {NoteApi} note - l'oggetto nota
+  * @param {string} markdown - il markdown che sta per essere convertito in html
+  * @param {bool} forExport - true se l'html viene utilizzato per un'esportazione, false per l'anteprima
+  * @return {string} il markdown modificato o una stringa vuota se non deve essere modificato nulla
+  */
 function preNoteToMarkdownHtmlHook(note, markdown, forExport);
 ```
 
@@ -223,21 +216,17 @@ noteToMarkdownHtmlHook
 ### Chiamata al metodo e parametri
 ```js
 /**
- * Questa funzione viene chiamata quando viene generato l'html markdown
- * di una nota
+  * Questa funzione viene chiamata quando viene generato il markdown html di una nota
+  *
+  * Ti permette di modificare questo html
+  * Questo è ad esempio chiamato prima dall'anteprima della nota
+  *
+  * La funzione può essere utilizzata in più script per modificare l'html dell'anteprima
  *
- * Ti permette di modificare questo html
- * Questo è chiamato ad esempio prima dell'anteprima della nota
- *
- * Il metodo può essere usato in più script per modificare l'html
- * dell'anteprima
- *
- * @param {NoteApi} note - l'oggetto nota
- * @param {string} html - l'html che sta per essere renderizzato
- * @param {string} forExport - true se l'html viene usato per
- *                             un'esportazione, false per l'anteprima
- * @return {string} l'html modificato o una stringa vuota se non si deve
- *                  modificare nulla
+ * @param {NoteApi} note - the note object
+ * @param {string} html - the html that is about to being rendered
+ * @param {bool} forExport - true if the html is used for an export, false for the preview
+ * @return {string} the modified html or an empty string if nothing should be modified
  */
 function noteToMarkdownHtmlHook(note, html, forExport);
 ```
@@ -300,7 +289,7 @@ function noteTaggingHook(note, action, tagName, newTagName);
         -   se ci sono più etichette collo stesso nome nel tuo albero delle etichette, verrà assegnata la prima corrispondenza
     -   l'aggiunta di un'etichetta a una nota aggiungerà l'etichetta al testo della nota
     -   la rimozione di un'etichetta da una nota rimuoverà l'etichetta dal testo della nota
-    -   la rimozione di etichettw dall'elenco rimuoverà le etichette dalle tue note
+    -   la rimozione di etichette dall'elenco rimuoverà le etichette dalle tue note
     -   rinominare le etichette nell'elenco rinominerà le etichette nelle note
     -   l'etichettatura collettiva delle note nell'elenco delle note aggiungerà tali etichette alle note
     -   la rimozione collettiva di etichette dalle note nell'elenco delle note rimuoverà tali etichette dalle note
@@ -431,3 +420,21 @@ function windowStateChangedHook(windowState);
 ```
 
 Potresti voler dare un'occhiata all'esempio [window-state-changed.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/window-state-changed.qml).
+
+workspaceSwitchedHook
+----------------------
+
+This hook is called when workspaces are switched.
+
+### Chiamata al metodo e parametri
+```js
+/**
+ * This function is called when workspaces are switched
+ *
+ * @param oldUuid old uuid of workspace
+ * @param newUuid new uuid of workspace
+ */
+function workspaceSwitchedHook(oldUuid, newUuid);
+```
+
+Potresti voler dare un'occhiata all'esempio [websocket-raw-data-new-note.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/workspaces.qml).

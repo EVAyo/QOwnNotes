@@ -8,8 +8,6 @@
 
 ## Fordítások
 
-<ProfileCard name="Amy Lang" img="https://secure.gravatar.com/avatar/3dc87f329e6146780ea72c79db9c5b57" backgroundImg="/screenshots/screenshot-darkmode.png" functions="Head of translation" crowdin="rawfreeamy" />
-
-... és még sok minden más, lásd: [QOwnNotes s Crowdin-on](https://crowdin.com/project/qownnotes/activity_stream)
+Lásd: [QOwnNotes on Crowdin](https://crowdin.com/project/qownnotes/activity_stream)
 
 Ha segíteni szeretne a QOwnNotes fordításában, látogasson el a [Fordítás](translation.md) oldalra.

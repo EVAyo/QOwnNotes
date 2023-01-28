@@ -20,17 +20,21 @@ Vous n'avez pas absolument besoin du mode portable si vous ne disposez pas des a
 
 Qt a abandonné la prise en charge de Windows XP avec la version 5.8, mais QOwnNotes est désormais également compilé avec Qt 5.7 pour permettre aux utilisateurs de Windows XP de continuer à l'utiliser.
 
-Bien que vous deviez rechercher vous-même la dernière version principale de [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/history), choisissez l '*environnement Qt 5.7* et téléchargez l' *artefact*.
+Vous devrez vous-même télécharger le fichier ZIP d'[AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/build/artifacts) et le dézipper dans le dossier de votre choix.
 
-::: tip Info
-Le mécanisme de mise à jour automatique ne fonctionne pas avec la version d'AppVeyor pour Windows XP ! Vous devrez télécharger vous-même les nouvelles versions.
+Vous pouvez ensuite exécuter directement `QOwnNotes.exe` depuis ce dossier, aucune installation n'est requise.
+
+::: tip
+Info
+Le mécanisme de mise à jour automatique ne fonctionne pas avec la version d'AppVeyor pour Windows XP !
+Vous devrez télécharger vous-même les nouvelles versions.
 :::
 
 ## Chocolatey
 
-Il existe un package de QOwnNotes géré par la communauté à [Chocolatey](https://chocolatey.org/packages/qownnotes/).
+Il existe un package de QOwnNotes géré par la communauté [Chocolatey](https://chocolatey.org/packages/qownnotes/).
 
-Vous pouvez l'installer avec :
+Vous pouvez l'installer en tapant :
 
 ```shell
 choco install qownnotes
@@ -38,7 +42,7 @@ choco install qownnotes
 
 ## Scoop
 
-There is a [community maintained package of QOwnNotes](https://github.com/ScoopInstaller/Extras/blob/master/bucket/qownnotes.json) at [Scoop](https://scoop.sh/). If you add the Extras bucket you can use it to install QOwnNotes in portable mode.
+Il existe un [paquet QOwnNotes maintenu par la communauté](https://github.com/ScoopInstaller/Extras/blob/master/bucket/qownnotes.json) sur [Scoop](https://scoop.sh/). Si vous ajoutez le « bucket » Extras vous pourrez l'utiliser pour installer QOwnNotes en mode portable.
 
 ```shell
 scoop bucket add extras

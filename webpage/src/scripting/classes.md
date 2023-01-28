@@ -55,12 +55,29 @@ class NoteSubFolderApi {
     Q_PROPERTY(QString name)
     Q_PROPERTY(QQmlListProperty<NoteApi> notes)
     Q_INVOKABLE static NoteSubFolderApi *fetchNoteSubFolderById(int id);
+    Q_INVOKABLE static NoteSubFolderApi *activeNoteSubFolder();
     Q_INVOKABLE static QList<QObject*> fetchNoteSubFoldersByParentId(int parentId);
+    Q_INVOKABLE QString relativePath();
+    Q_INVOKABLE QString fullPath();
 };
 ```
 
 ### Example
 ```js
+var noteSubFolderQmlObj = Qt.createQmlObject("import QOwnNotesTypes 1.0; NoteSubFolder{}", mainWindow, "noteSubFolder");
+
+// print all subfolder names
+noteSubFolderQmlObj.fetchNoteSubFoldersByParentId(parentId).forEach(function(nsf) {
+    script.log(nsf.name);
+});
+
+// get the active note subfolder
+var noteSubFolder = noteSubFolderQmlObj.activeNoteSubFolder();
+
+// print the full and relative path of the active note subfolder
+script.log(noteSubFolder.fullPath());
+script.log(noteSubFolder.relativePath());
+
 script.log(noteSubFolder.id);
 script.log(noteSubFolder.name);
 
@@ -68,11 +85,6 @@ script.log(noteSubFolder.name);
 for (var idx in noteSubFolder.notes) {
     var note = noteSubFolder.notes[idx];
 }
-
-// print all subfolder names
-noteSubFolder.fetchNoteSubFoldersByParentId(parentId).forEach(function(nsf) {
-    script.log(nsf.name);
-});
 ```
 
 Tag
@@ -84,10 +96,30 @@ class TagApi {
     Q_PROPERTY(int id)
     Q_PROPERTY(QString name)
     Q_PROPERTY(int parentId)
+    Q_PROPERTY(QQmlListProperty<NoteApi> notes)
     Q_INVOKABLE TagApi fetchByName(const QString &name, int parentId = 0)
     Q_INVOKABLE QStringList getParentTagNames()
 };
 ```
+
+### Example
+```js
+// Don't forget to use "import QOwnNotesTypes 1.0" at the top of your script!
+
+// Fetch tag "home"
+var tag = script.getTagByNameBreadcrumbList(["home"]);
+// Fetch all notes tagged with the tag
+var notes = tag.notes;
+
+// Iterate through notes of the tag
+for (var idx in notes) {
+    var note = notes[idx];
+    script.log(note.name);
+}
+```
+
+You'll find more examples where TagApi is used in
+[note-tagging-by-object.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/note-tagging-by-object.qml).
 
 MainWindow
 ----------
@@ -115,6 +147,12 @@ class MainWindow {
     Q_INVOKABLE QString getWorkspaceUuid(const QString &workspaceName);
     // Sets the current workspace by UUID
     Q_INVOKABLE void setCurrentWorkspace(const QString &uuid);
+    // Closes a note tab on a specific index (returns true if successful)
+    Q_INVOKABLE bool removeNoteTab(int index);
+    // Returns a list of note ids that are opened in tabs
+    Q_INVOKABLE QList<int> getNoteTabNoteIdList();
+    // Jumps to a tag in the tag tree
+    Q_INVOKABLE bool jumpToTag(int tagId);
 };
 ```
 
@@ -131,4 +169,18 @@ mainWindow.insertHtmlAsMarkdownIntoCurrentNote("<h2>my headline</h2>some text");
 
 // Set 'Edit' workspace as current workspace
 mainWindow.setCurrentWorkspace(mainWindow.getWorkspaceUuid("Edit"));
+
+// Jump to the tag "test" in the tag tree
+// There is an example in https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/custom-actions.qml
+var tag = script.getTagByNameBreadcrumbList(["test"]);
+mainWindow.jumpToTag(tag.id);
+
+// Get all notes that are opened in tabs
+var noteIds = mainWindow.getNoteTabNoteIdList();
+noteIds.forEach(function (noteId){
+    var note = script.fetchNoteById(noteId);
+
+    // do something with the note
+});
+
 ```

@@ -153,19 +153,19 @@ handleNewNoteHeadlineHook
 
 ### Methodeaanroep en parameters
 ```js
-/ **
-  * Deze functie wordt aangeroepen voordat een nootnoot wordt aangemaakt
+/**
+  * Deze functie wordt aangeroepen voordat een noot wordt gemaakt
   *
   * Hiermee kunt u de kop van de notitie wijzigen voordat deze wordt gemaakt
-  * Merk op dat u anders moet zorgen voor een unieke naam van de notitie
-  * de nieuwe notitie wordt niet aangemaakt, deze staat alleen in de notitielijst
+  * Houd er rekening mee dat u anders moet zorgen voor een unieke nootnaam
+  * de nieuwe notitie wordt niet gemaakt, deze wordt alleen in de notitielijst gevonden
   *
-  * U kunt deze methode gebruiken om notitiesjablonen te maken
+  * U kunt deze functie gebruiken voor het maken van notitiesjablonen
   *
-  * @param koptekst die zou worden gebruikt om de koptekst te maken
+  * @param koptekst die zou worden gebruikt om de kop te maken
   * @return {string} de kop van de notitie
-  * /
-functie handleNewNoteHeadlineHook (headline);
+  */
+function handleNewNoteHeadlineHook(headline);
 ```
 
 Misschien wil je het voorbeeld [custom-new-note-headline.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/custom-new-note-headline.qml) bekijken.
@@ -180,17 +180,17 @@ preNoteToMarkdownHtmlHook
   *
   * Hiermee kunt u wijzigen wat wordt doorgegeven aan de markdown naar html-converter
   *
-  * De methode kan bijvoorbeeld in meerdere scripts worden gebruikt om code weer te geven (zoals LaTeX-wiskunde of zeemeermin)
+  * De functie kan bijvoorbeeld in meerdere scripts worden gebruikt om code weer te geven (zoals LaTeX wiskunde of zeemeermin)
   * naar de grafische weergave voor de preview
   *
   * De notitie wordt tijdens dit proces niet gewijzigd
   *
-  * @param {NoteApi} note - het notitieobject
-  * @param {string} markdown - de markdown die op het punt staat te worden omgezet naar html
-  * @param {string} forExport - true als de html wordt gebruikt voor een export, false voor de preview
-  * @return {string} de gewijzigde markdown of een lege string als er niets gewijzigd mag worden
+  * @param {NoteApi} notitie - het notitieobject
+  * @param {string} markdown - de markdown die op het punt staat te worden geconverteerd naar html
+  * @param {bool} forExport - waar als de html wordt gebruikt voor een export, onwaar voor het voorbeeld
+  * @return {string} de gewijzigde afwaardering of een lege tekenreeks als er niets moet worden gewijzigd
   */
-functie preNoteToMarkdownHtmlHook (note, markdown, forExport);
+functie preNoteToMarkdownHtmlHook(note, markdown, forExport);
 ```
 
 Misschien wilt u het voorbeeld eens bekijken [preview-styling.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/preview-styling.qml).
@@ -204,16 +204,16 @@ noteToMarkdownHtmlHook
   * Deze functie wordt aangeroepen wanneer de markdown-html van een notitie wordt gegenereerd
   *
   * Hiermee kunt u deze html wijzigen
-  * Dit wordt bijvoorbeeld eerder aangeroepen door het notitievoorbeeld
+  * Dit wordt bijvoorbeeld eerder aangeroepen door de notitievoorbeeld
   *
-  * De methode kan in meerdere scripts worden gebruikt om de html van de preview te wijzigen
+  * De functie kan in meerdere scripts worden gebruikt om de html van de preview te wijzigen
   *
-  * @param {NoteApi} note - het notitieobject
+  * @param {NoteApi} notitie - het notitieobject
   * @param {string} html - de html die op het punt staat te worden weergegeven
-  * @param {string} forExport - true als de html wordt gebruikt voor een export, false voor de preview
-  * @return {string} de gewijzigde html of een lege string als er niets gewijzigd mag worden
+  * @param {bool} forExport - waar als de html wordt gebruikt voor een export, onwaar voor het voorbeeld
+  * @return {string} de gewijzigde html of een lege string als er niets gewijzigd moet worden
   */
-functie noteToMarkdownHtmlHook (opmerking, html, forExport);
+functie noteToMarkdownHtmlHook(note, html, forExport);
 ```
 
 Misschien wilt u het voorbeeld eens bekijken [voorbeeld.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/example.qml) of [preview-styling.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/preview-styling.qml).
@@ -263,7 +263,7 @@ functie noteTaggingHook (note, action, tagName, newTagName);
 -   zodra een script is geactiveerd dat de nieuwe functie `noteTaggingHook` implementeert, wordt het taggen van opmerkingen door die functie afgehandeld
 -   zodra een script is geactiveerd dat de nieuwe functie <0>noteTaggingHook</0> implementeert, wordt het taggen van opmerkingen door die afgehandeld
     -   in eerste instantie tags zoals `@tag` uit je notities importeren en je huidige tag-toewijzing overschrijven
-        -   u zult uw tagsboom niet verliezen, alleen de vorige toewijzing aan notities
+        -   je raakt je tags-boom niet kwijt, alleen de vorige toewijzing aan notities
         -   u kunt nog steeds tags naar andere tags verplaatsen
         -   als meer dan één tag dezelfde naam heeft in uw tagboom, wordt de eerste treffer toegewezen
     -   door een tag aan een notitie toe te voegen, wordt de tag aan de notitietekst toegevoegd
@@ -381,3 +381,21 @@ functie windowStateChangedHook (windowState);
 ```
 
 Misschien wilt u het voorbeeld eens bekijken [window-state-changed.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/window-state-changed.qml).
+
+workspaceSwitchedHook
+----------------------
+
+This hook is called when workspaces are switched.
+
+### Methodeaanroep en parameters
+```js
+/**
+ * This function is called when workspaces are switched
+ *
+ * @param oldUuid old uuid of workspace
+ * @param newUuid new uuid of workspace
+ */
+function workspaceSwitchedHook(oldUuid, newUuid);
+```
+
+Misschien wil je het voorbeeld bekijken [websocket-raw-data-new-note.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/workspaces.qml).

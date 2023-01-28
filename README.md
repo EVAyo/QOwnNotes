@@ -15,6 +15,7 @@
 [Mastodon](https://social.qownnotes.org/@qownnotes) |
 [Twitter](https://twitter.com/QOwnNotes) |
 [Facebook](https://www.facebook.com/QOwnNotes) |
+[QOwnNotes Web Companion Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/qownnotes-web-companion/) |
 [QOwnNotes Web Companion Chrome extension](https://chrome.google.com/webstore/detail/qownnotes-web-companion/pkgkfnampapjbopomdpnkckbjdnpkbkp) |
 [QOwnNotes Web App](https://app.qownnotes.org/) |
 [QOwnNotes Tor Hidden Service](http://qownnotn3bknenanjs5u4nf3f2law2tzmqklux3c5e2xbvzcksmxm6yd.onion/)
@@ -104,7 +105,7 @@ You can visit the [QOwnNotes project page](https://www.qownnotes.org) for more *
 	  page to install the app on Mozilla Firefox
 - notes are getting their name from the first line of the note text (just like
   in the Nextcloud / ownCloud notes web-application) and the note text files are
-  automatically renamed, if the the first line changes
+  automatically renamed, if the first line changes
     - this feature can also be turned off and you can use any filename you like
 - manage your Nextcloud / ownCloud todo lists (ownCloud tasks or Tasks Plus / Calendar Plus)
 - **encryption of notes** (AES-256 is built in or you can use custom encryption methods like
@@ -139,7 +140,7 @@ code. Download the latest source here:
 Alternatively you can also checkout the code directly from the git repository:
 
 ```shell
-git clone https://github.com/pbek/QOwnNotes.git -b master
+git clone https://github.com/pbek/QOwnNotes.git -b master --depth=1
 cd QOwnNotes
 git submodule update --init
 ```
@@ -156,8 +157,20 @@ cd src
 lrelease QOwnNotes.pro
 
 qmake
-make
+make -j4
 ```
+
+### Building QOwnNotes For Development
+
+If you are going to work with the code, then you can do the following instead of the above:
+
+```shell
+cd src
+qmake CONFIG+=DEV_MODE CONFIG+=debug ..
+make -j4
+```
+
+The `DEV_MODE` variable enabled higher warning levels + precompiled headers.
 
 Please feel free to contribute source code to this project, make suggestions or
 report troubles on the [QOwnNotes issues page](https://github.com/pbek/QOwnNotes/issues)!
@@ -166,7 +179,7 @@ You can also visit [QOwnNotes on GitHub](https://github.com/pbek/QOwnNotes).
 
 ## Minimum software requirements
 
-- A desktop operating system, that supports [Qt](http://www.qt.io/)
+- A desktop operating system, that supports [Qt](https://www.qt.io)
 - Qt 5.5+
 - gcc 4.8+
 

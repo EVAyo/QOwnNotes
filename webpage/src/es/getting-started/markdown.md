@@ -60,7 +60,7 @@ Puede utilizar el [atajo](./shortcuts.md) <kbd>Ctrl + U</kbd> para subrayar un t
 ## Tachar
 
 ```markdown
-~~strike out~~
+~~tachar~~
 ```
 
 ::: tip
@@ -139,7 +139,7 @@ También puede pegar directamente una imagen del portapapeles en su nota con <kb
 ## Código en línea y bloques de código
 
 ```markdown
-Inline `code` has `back-ticks around` it.
+El 'código' en línea tiene 'marcas de retroceso' a su alrededor.
 ```
 
 ::: tip
@@ -148,7 +148,7 @@ Puede usar el [shortcut](./shortcuts.md) <kbd>Ctrl + Shift + C</kbd> en texto en
 
 Blocks of code are either fenced by lines with three back-ticks, or are indented with four spaces.
 
-### 4-Spaces fence
+### Valla de 4 espacios
 
 Agregue cuatro espacios delante de su código para marcarlo como bloque de código.
 
@@ -183,10 +183,10 @@ cd notas
 ```
 ~~~
 
-Currently, supported languages (and code block identifiers) are:
+Actualmente, los idiomas admitidos (e identificadores de bloque de código) son:
 
-* BASh scripting, `bash`
-* C, `c`
+* Scripts BASh, `bash`
+* C, 'c'
 * C++, `cpp`
 * C++, `cxx`
 * C++, `c++`
@@ -194,35 +194,35 @@ Currently, supported languages (and code block identifiers) are:
 * CMake, `cmake`
 * C#, `csharp`
 * CSS, `css`
-* Go, `go`
+* Ir, `ir`
 * HTML, `html`
-* INI, `ini`
+*INI, `ini`
 * Java, `java`
 * JavaScript, `javascript`
 * JavaScript, `js`
 * JSON, `json`
-* Makefile, `make`
+* Makefile, `hacer`
 * PHP, `php`
 * Python, `py`
-* Python, `python`
+* Python, `pitón`
 * QML, `qml`
-* Rust, `rust`
-* Shell scripting, `sh`
+* Óxido, `óxido`
+* Script de shell, `sh`
 * SQL, `sql`
-* TypeScript, `ts`
-* TypeScript, `typescript`
-* V, `v`
-* Vex, `vex`
-* XML, `xml`
+* Mecanografiado, `ts`
+* Mecanografiado, `mecanografiado`
+* V, 'v'
+* Vejar, `vejar`
+* XML, 'xml'
 * YAML, `yml`
 * YAML, `yaml`
 
-## Tables
+## Mesas
 
-Tables aren't part of the core Markdown spec, but the QOwnNotes preview supports them. 
+Las tablas no forman parte de la especificación principal de Markdown, pero la vista previa de QOwnNotes las admite. 
 
 ~~~markdown
-Colons can be used to align columns.
+Los dos puntos se pueden utilizar para alinear columnas.
 
 | Tablas | Son | Cool |
 | ------------- |: -------------: | -----: |
@@ -241,7 +241,7 @@ También puede utilizar Markdown en línea.
 ~~~
 
 ::: tip
-Press <kbd>Alt + Shift + T</kbd> to activate a dialog that can help you to create tables. Incluso puede importar archivos CSV en ese cuadro de diálogo.
+Presione <kbd>Alt + Shift + T</kbd> para activar un cuadro de diálogo que puede ayudarlo a crear tablas. Incluso puede importar archivos CSV en ese cuadro de diálogo.
 
 Use <kbd>Ctrl + Espacio</kbd> dentro de una tabla de rebajas para formatearla automáticamente.
 :::
@@ -285,12 +285,12 @@ ___
 
 ## Saltos de línea
 
-- **Dos líneas nuevas** le darán un **párrafo nuevo**.
-- **Una nueva línea**le dará una** nueva línea en el mismo párrafo**.
-- Para tener un salto de línea **sin un párrafo**, necesitará usar **dos espacios finales**.
+- Puede dividir un párrafo en más de una sola línea para facilitar la edición, aún se representan como un solo párrafo sin interrupciones.
+- Puede forzar un salto de línea dentro de un párrafo terminando una línea con dos espacios.
+- Puede hacer un párrafo separado delimitándolo con líneas vacías.
 
 ::: tip
-You can enter two spaces and a newline with <kbd>⇧ Shift</kbd> + <kbd>Return</kbd>.
+Puede ingresar dos espacios y una nueva línea con <kbd>⇧ Shift</kbd> + <kbd>Return</kbd>.
 :::
 
 ```markdown
@@ -303,12 +303,12 @@ Esta línea solo está separada por dos espacios finales y una sola línea nueva
 ```
 
 ::: tip
-Trailing spaces are highlighted by default in the editor.
+Los espacios finales están resaltados de forma predeterminada en el editor.
 :::
 
 ## Comentarios
 
-Comments are not shown in the preview.
+Los comentarios no se muestran en la vista previa.
 
 ```markdown
 [comentario]: # (este comentario no aparecerá en la vista previa)
@@ -317,12 +317,12 @@ Comments are not shown in the preview.
 ```
 
 ::: tip
-A leading html comment block in a note will also be ignored in the automatic note filename generation.
+Un bloque de comentario html inicial en una nota también se ignorará en la generación automática del nombre de archivo de la nota.
 :::
 
 ## Listas de casillas de verificación
 
-You can create simple todo lists with checkbox lists.
+Puede crear listas de tareas pendientes simples con listas de casillas de verificación.
 
 ```markdown
 - [x] done
@@ -330,12 +330,12 @@ You can create simple todo lists with checkbox lists.
 ```
 
 ::: tip
-You can check/un-check checkboxes in the preview.
+Puede marcar / desmarcar las casillas de verificación en la vista previa.
 :::
 
 ## Frontmatter
 
-In QOwnNotes you can use a frontmatter (e.g. YAML) to add some extra meta information. It will **not be shown in the preview** and will **not disturb the the automatic note filename generation**.
+En QOwnNotes puede usar un frontmatter (por ejemplo, YAML) para agregar algo de metainformación adicional. **No se mostrará en la previsualización** ni **perturbará la generación automática de nombres de archivo para las notas**.
 
 ```markdown
 ---
@@ -348,4 +348,4 @@ descripción: Alguna descripción
 Algún texto
 ```
 
-The filename of this example note would be `Note headline starts here.md`.
+El nombre de archivo de esta nota de ejemplo sería `El título de la nota comienza aquí.md`.

@@ -23,8 +23,7 @@
 
 #include "ui_scriptrepositorydialog.h"
 
-ScriptRepositoryDialog::ScriptRepositoryDialog(QWidget *parent,
-                                               bool checkForUpdates)
+ScriptRepositoryDialog::ScriptRepositoryDialog(QWidget *parent, bool checkForUpdates)
     : MasterDialog(parent), ui(new Ui::ScriptRepositoryDialog) {
     ui->setupUi(this);
     setupMainSplitter();
@@ -53,8 +52,7 @@ ScriptRepositoryDialog::ScriptRepositoryDialog(QWidget *parent,
         ui->overviewLabel->setText(tr("All scripts are up-to-date."));
         searchForUpdates();
     } else {
-        QObject::connect(ui->scriptTreeWidget->verticalScrollBar(),
-                         SIGNAL(valueChanged(int)), this,
+        QObject::connect(ui->scriptTreeWidget->verticalScrollBar(), SIGNAL(valueChanged(int)), this,
                          SLOT(scriptTreeWidgetSliderValueChanged(int)));
 
         searchScript();
@@ -120,9 +118,10 @@ void ScriptRepositoryDialog::searchScript(int page) {
     QNetworkRequest networkRequest(url);
     _page = page;
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)) && (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    networkRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute,
-                                true);
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
+    networkRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+#else
+    networkRequest.setAttribute(QNetworkRequest::RedirectPolicyAttribute, true);
 #endif
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
@@ -152,15 +151,15 @@ void ScriptRepositoryDialog::searchForUpdates() {
         QUrl url = script.repositoryInfoJsonUrl();
         QNetworkRequest networkRequest(url);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)) && (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-        networkRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute,
-                                    true);
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
+        networkRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+#else
+        networkRequest.setAttribute(QNetworkRequest::RedirectPolicyAttribute, true);
 #endif
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
         // try to ensure the network is accessible
-        _networkManager->setNetworkAccessible(
-            QNetworkAccessManager::Accessible);
+        _networkManager->setNetworkAccessible(QNetworkAccessManager::Accessible);
 #endif
 
         _networkManager->get(networkRequest);
@@ -170,9 +169,7 @@ void ScriptRepositoryDialog::searchForUpdates() {
 /**
  * Does a script search
  */
-void ScriptRepositoryDialog::on_searchScriptEdit_returnPressed() {
-    searchScript();
-}
+void ScriptRepositoryDialog::on_searchScriptEdit_returnPressed() { searchScript(); }
 
 /**
  * Handles all the network replies
@@ -224,8 +221,7 @@ void ScriptRepositoryDialog::parseCodeSearchReply(const QByteArray &arr) {
         qDebug() << __func__ << " - 'path': " << path;
 
         QRegularExpressionMatch match =
-            QRegularExpression(QStringLiteral("(.+)\\/info\\.json"))
-                .match(path);
+            QRegularExpression(QStringLiteral("(.+)\\/info\\.json")).match(path);
 
         if (!match.hasMatch()) {
             continue;
@@ -242,15 +238,15 @@ void ScriptRepositoryDialog::parseCodeSearchReply(const QByteArray &arr) {
         QUrl url(_rawContentUrlPrefix + path);
         QNetworkRequest networkRequest(url);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)) && (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-        networkRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute,
-                                    true);
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
+        networkRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+#else
+        networkRequest.setAttribute(QNetworkRequest::RedirectPolicyAttribute, true);
 #endif
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
         // try to ensure the network is accessible
-        _networkManager->setNetworkAccessible(
-            QNetworkAccessManager::Accessible);
+        _networkManager->setNetworkAccessible(QNetworkAccessManager::Accessible);
 #endif
 
         _networkManager->get(networkRequest);
@@ -293,8 +289,7 @@ void ScriptRepositoryDialog::parseInfoQMLReply(const QByteArray &arr) {
     QString jsonData = QString(arr);
 
     // check if script item already exists in tree widget
-    if (Utils::Gui::userDataInTreeWidgetExists(ui->scriptTreeWidget,
-                                               jsonData)) {
+    if (Utils::Gui::userDataInTreeWidgetExists(ui->scriptTreeWidget, jsonData)) {
         return;
     }
 
@@ -312,8 +307,7 @@ void ScriptRepositoryDialog::parseInfoQMLReply(const QByteArray &arr) {
     ui->scriptTreeWidget->resizeColumnToContents(0);
 
     if (_page == 1) {
-        ui->scriptTreeWidget->setCurrentItem(
-            ui->scriptTreeWidget->topLevelItem(0));
+        ui->scriptTreeWidget->setCurrentItem(ui->scriptTreeWidget->topLevelItem(0));
     }
 }
 
@@ -329,9 +323,7 @@ void ScriptRepositoryDialog::setupMainSplitter() {
     // restore splitter sizes
     QSettings settings;
     QByteArray state =
-        settings
-            .value(QStringLiteral("ScriptRepositoryDialog/mainSplitterState"))
-            .toByteArray();
+        settings.value(QStringLiteral("ScriptRepositoryDialog/mainSplitterState")).toByteArray();
     _mainSplitter->restoreState(state);
 
     ui->gridLayout->layout()->addWidget(_mainSplitter);
@@ -342,9 +334,8 @@ void ScriptRepositoryDialog::setupMainSplitter() {
  */
 void ScriptRepositoryDialog::storeSettings() {
     QSettings settings;
-    settings.setValue(
-        QStringLiteral("ScriptRepositoryDialog/mainSplitterState"),
-        _mainSplitter->saveState());
+    settings.setValue(QStringLiteral("ScriptRepositoryDialog/mainSplitterState"),
+                      _mainSplitter->saveState());
 }
 
 /**
@@ -353,8 +344,8 @@ void ScriptRepositoryDialog::storeSettings() {
  * @param current
  * @param previous
  */
-void ScriptRepositoryDialog::on_scriptTreeWidget_currentItemChanged(
-    QTreeWidgetItem *current, QTreeWidgetItem *previous) {
+void ScriptRepositoryDialog::on_scriptTreeWidget_currentItemChanged(QTreeWidgetItem *current,
+                                                                    QTreeWidgetItem *previous) {
     Q_UNUSED(current);
     Q_UNUSED(previous);
 
@@ -381,21 +372,17 @@ void ScriptRepositoryDialog::reloadCurrentScriptInfo() {
     ui->versionLabel->setText(infoJson.version);
     ui->minAppVersionLabel->setText(infoJson.minAppVersion);
     ui->minAppVersionLabel->setHidden(infoJson.minAppVersion.isEmpty());
-    ui->minAppVersionHeadlineLabel->setVisible(
-        ui->minAppVersionLabel->isVisible());
+    ui->minAppVersionHeadlineLabel->setVisible(ui->minAppVersionLabel->isVisible());
     ui->descriptionLabel->setText(infoJson.description);
     ui->authorLabel->setText(infoJson.richAuthorText);
     ui->authorHeadlineLabel->setText(
-        (infoJson.richAuthorList.count() > 1 ? tr("Authors") : tr("Author")) +
-        ":");
+        (infoJson.richAuthorList.count() > 1 ? tr("Authors") : tr("Author")) + ":");
     ui->platformLabel->setText(infoJson.richPlatformText);
-    ui->platformHeadlineLabel->setText((infoJson.platformList.count() > 1
-                                            ? tr("Supported platforms")
-                                            : tr("Supported platform")) +
-                                       ":");
-    ui->repositoryLinkLabel->setText(
-        "<a href=\"https://github.com/qownnotes/scripts/tree/master/" +
-        infoJson.identifier + "\">" + tr("Open repository") + "</a>");
+    ui->platformHeadlineLabel->setText(
+        (infoJson.platformList.count() > 1 ? tr("Supported platforms") : tr("Supported platform")) +
+        ":");
+    ui->repositoryLinkLabel->setText("<a href=\"https://github.com/qownnotes/scripts/tree/master/" +
+                                     infoJson.identifier + "\">" + tr("Open repository") + "</a>");
 
     Script script = Script::fetchByIdentifier(infoJson.identifier);
     if (script.isFetched()) {
@@ -429,8 +416,7 @@ void ScriptRepositoryDialog::reloadCurrentScriptInfo() {
  * @return
  */
 QJsonObject ScriptRepositoryDialog::getCurrentInfoJsonObject() {
-    QJsonDocument jsonResponse =
-        QJsonDocument::fromJson(getCurrentInfoJsonString().toUtf8());
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(getCurrentInfoJsonString().toUtf8());
     QJsonObject jsonObject = jsonResponse.object();
 
     return jsonObject;
@@ -444,7 +430,7 @@ QJsonObject ScriptRepositoryDialog::getCurrentInfoJsonObject() {
 QString ScriptRepositoryDialog::getCurrentInfoJsonString() {
     QTreeWidgetItem *item = ui->scriptTreeWidget->currentItem();
 
-    if (item == Q_NULLPTR) {
+    if (item == nullptr) {
         return QString();
     }
 
@@ -462,8 +448,7 @@ void ScriptRepositoryDialog::on_installButton_clicked() {
         return;
     }
 
-    QString identifier =
-        jsonObject.value(QStringLiteral("identifier")).toString();
+    QString identifier = jsonObject.value(QStringLiteral("identifier")).toString();
 
     if (identifier.isEmpty()) {
         return;
@@ -475,20 +460,18 @@ void ScriptRepositoryDialog::on_installButton_clicked() {
 
     // check if platform is supported
     if (!infoJson.platformSupported &&
-        QMessageBox::information(
-            this, tr("Platform not supported!"),
-            tr("Your platform is not supported by this script!\n"
-               "Do you want to install it anyway?"),
-            tr("Install"), tr("Cancel"), QString(), 0, 1) != 0) {
+        QMessageBox::information(this, tr("Platform not supported!"),
+                                 tr("Your platform is not supported by this script!\n"
+                                    "Do you want to install it anyway?"),
+                                 tr("Install"), tr("Cancel"), QString(), 0, 1) != 0) {
         return;
     }
 
     // check if app version is supported
     if (!infoJson.appVersionSupported) {
-        QMessageBox::information(
-            this, tr("Update app"),
-            tr("Please don't forget to update your installation of "
-               "QOwnNotes to make this script work!"));
+        QMessageBox::information(this, tr("Update app"),
+                                 tr("Please don't forget to update your installation of "
+                                    "QOwnNotes to make this script work!"));
     }
 
     ui->installButton->setEnabled(false);
@@ -531,8 +514,7 @@ void ScriptRepositoryDialog::on_installButton_clicked() {
             QUrl resourceUrl = script.remoteFileUrl(resourceFileName);
             qDebug() << "Downloading: " << resourceUrl;
 
-            auto *file =
-                new QFile(scriptRepositoryPath + "/" + resourceFileName);
+            auto *file = new QFile(scriptRepositoryPath + "/" + resourceFileName);
 
             if (!Utils::Misc::downloadUrlToFile(resourceUrl, file)) {
                 filesWereDownloaded = false;
@@ -550,8 +532,7 @@ void ScriptRepositoryDialog::on_installButton_clicked() {
 
     if (filesWereDownloaded) {
         script.store();
-        MetricsService::instance()->sendVisitIfEnabled(
-            "script-repository/install/" + identifier);
+        MetricsService::instance()->sendVisitIfEnabled("script-repository/install/" + identifier);
         reloadCurrentScriptInfo();
         _lastInstalledScript = script;
 
@@ -568,18 +549,13 @@ void ScriptRepositoryDialog::on_installButton_clicked() {
     }
 }
 
-void ScriptRepositoryDialog::on_searchScriptEdit_textChanged(
-    const QString &arg1) {
+void ScriptRepositoryDialog::on_searchScriptEdit_textChanged(const QString &arg1) {
     // list all scripts again if the search bar was cleared
     if (!_checkForUpdates && arg1.isEmpty()) {
         searchScript();
     }
 }
 
-void ScriptRepositoryDialog::on_loadMoreScriptsButton_clicked() {
-    loadMoreItems();
-}
+void ScriptRepositoryDialog::on_loadMoreScriptsButton_clicked() { loadMoreItems(); }
 
-Script ScriptRepositoryDialog::getLastInstalledScript() {
-    return _lastInstalledScript;
-}
+Script ScriptRepositoryDialog::getLastInstalledScript() { return _lastInstalledScript; }

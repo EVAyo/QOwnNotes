@@ -19,10 +19,14 @@ No necesita el modo portátil si simplemente no tiene permisos de administració
 
 Qt eliminó el soporte para Windows XP con la versión 5.8, pero QOwnNotes ahora también está construido con Qt 5.7 para permitir que los usuarios de Windows XP aún lo usen.
 
-Aunque debe buscar la última compilación maestra de [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/history) usted mismo, elija el *entorno Qt 5.7* y descargue el *artefacto*.
+Debe descargar el archivo ZIP de [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/build/artifacts) usted mismo y descomprímalo en una carpeta de su agrado.
 
-::: tip Info
-¡El mecanismo de actualización automática no funciona con la compilación de AppVeyor para Windows XP! Tendrá que descargar las nuevas versiones usted mismo.
+Luego puede ejecutar directamente `QOwnNotes.exe` desde esa carpeta, no se requiere instalación.
+
+::: tip
+Info
+¡El mecanismo de actualización automática no funciona con la compilación de AppVeyor para Windows XP!
+Tendrá que descargar las nuevas versiones usted mismo.
 :::
 
 ## Chocolatey
@@ -35,9 +39,9 @@ Puedes instalarlo con:
 choco install qownnotes
 ```
 
-## Scoop
+## Cucharón
 
-There is a [community maintained package of QOwnNotes](https://github.com/ScoopInstaller/Extras/blob/master/bucket/qownnotes.json) at [Scoop](https://scoop.sh/). If you add the Extras bucket you can use it to install QOwnNotes in portable mode.
+There is a [paquete mantenido por la comunidad de QOwnNotes](https://github.com/ScoopInstaller/Extras/blob/master/bucket/qownnotes.json) at [Scoop](https://scoop.sh/). Si agrega el cubo Extras, puede usarlo para instalar QOwnNotes en modo portátil.
 
 ```shell
 scoop bucket add extras

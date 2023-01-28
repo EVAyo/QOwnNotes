@@ -20,10 +20,14 @@
 
 Qt با نسخه 5.8 از ویندوز XP پشتیبانی نمی کند ولی QOwnNotes در حال حاضر نیز با Qt 5.7 ایجاد شده است تا به کاربران ویندوز XP همچنان امکان استفاده از آن را بدهد.
 
-*محیط Qt 5.7* را انتخاب کرده و *دست سازه* را بارگیری نمایید، اگرچه باید خودتان آخرین استاد سازه را از [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/history) جستجو کنید.
+شما باید فایل فشرده را از [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/build/artifacts) دانلود کرده و به داخل پوشه مورد نظر از حالت فشرده خارج کنید.
 
-::: tip Info
-مکانیسم بروزرسانی خودکار با سازه AppVeyor برای ویندوز XP کار نمی کند! شما باید خودتان انتشارهای جدید را بارگیری کنید.
+در این صورت می ‌توانید `QOwnNotes.exe` را از آن پوشه به طور مستقیم و بدون نیاز به نصب اجرا کنید.
+
+::: tip
+Info
+مکانیسم بروزرسانی خودکار با سازه AppVeyor برای ویندوز XP کار نمی کند!
+شما باید خودتان انتشارهای جدید را بارگیری کنید.
 :::
 
 ## چاکلتلی
@@ -36,9 +40,9 @@ Qt با نسخه 5.8 از ویندوز XP پشتیبانی نمی کند ولی 
 choco install qownnotes
 ```
 
-## Scoop
+## اسکوپ
 
-There is a [community maintained package of QOwnNotes](https://github.com/ScoopInstaller/Extras/blob/master/bucket/qownnotes.json) at [Scoop](https://scoop.sh/). در صورت افزودن باکت افزونه ها (Extras)، برای نصب QOwnNotes به شکل قابل حمل می توانید از آن استفاده کنید.
+یک [بسته نگهداری شده جمعی از QOwnNotes](https://github.com/ScoopInstaller/Extras/blob/master/bucket/qownnotes.json) در [اسکوپ](https://scoop.sh/) در دسترس قرار دارد. در صورت افزودن باکت افزونه ها (Extras)، برای نصب QOwnNotes به شکل قابل حمل می توانید از آن استفاده کنید.
 
 ```shell
 scoop bucket add extras

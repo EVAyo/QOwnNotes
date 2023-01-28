@@ -154,18 +154,18 @@ handleNewNoteHeadlineHook
 ### Módszerhívás és paraméterek
 ```js
 /**
-  * Ezt a funkciót a jegyzet létrehozása előtt hívják meg
-  *
-  * Lehetővé teszi a jegyzet címsorának módosítását még létrehozása előtt
-  * Ne feledje, hogy különben ügyelnie kell az egyedi jegyzet nevére
-  * az új jegyzet nem jön létre, csak megtalálható a jegyzetlistában
-  *
-  * Ezt a módszert használhatja jegyzetsablonok létrehozásához
-  *
-  * @param címsor szövege, amelyet a címsor létrehozásához használnak
-  * @return {string} a jegyzet címsora
-  */
-function handleNewNoteHeadlineHook (címsor);
+ * Ez a függvény a jegyzet létrehozása előtt meghívásra kerül
+ *
+ * Lehetővé teszi a jegyzet címsorának módosítását a létrehozás előtt
+ * Vegye figyelembe, hogy különben ügyelnie kell az egyedi jegyzetnévre
+ * az új jegyzet nem jön létre, csak megjelenik a jegyzetlistában
+ *
+ * Ezt a funkciót jegyzetsablonok létrehozására használhatja
+ *
+ * @param headline text that would be used to create the headline
+ * @return {string} the headline of the note
+ */
+function handleNewNoteHeadlineHook(headline);
 ```
 
 Érdemes megnézni a példát [custom-new-note-headline.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/custom-new-note-headline.qml).
@@ -175,22 +175,22 @@ preNoteToMarkdownHtmlHook
 
 ### Módszerhívás és paraméterek
 ```js
-/ **
-  * Ezt a függvényt akkor hívják meg, mielőtt egy jegyzet html-je létrejön
+/**
+  * Ezt a függvényt a rendszer a jegyzet markdown html-jének generálása előtt hívja meg
   *
-  * Lehetővé teszi annak módosítását, hogy mit továbbítanak a markdown to html átalakítóba
+  * Lehetővé teszi, hogy módosítsa, mi kerül át a html konverterhez
   *
-  * A módszer például több szkriptben is használható a kód rendereléséhez (például LaTeX math vagy sellő)
-  * az előnézet grafikus ábrázolásához
+  * A függvény például több szkriptben is használható kód megjelenítésére (például LaTeX matematikai vagy sellő)
+  * a grafikus megjelenítéséhez az előnézethez
   *
-  * A jegyzet ebben a folyamatban nem változik
+  * A jegyzet ebben a folyamatban nem módosul
   *
- * @param {NoteApi} note - the note object
- * @param {string} markdown - a html-re való átalakítás előtt álló jelölés
- * @param {string} forExport - igaz, ha a html-t exportáljuk, hamis az előnézethez
- * @return {string} a módosított jelölés vagy egy üres karakterlánc, ha semmit sem kellene módosítani
- */
-function preNoteToMarkdownHtmlHook(note, markdown, forExport);
+  * @param {NoteApi} note – a jegyzetobjektum
+  * @param {string} leértékelés – az a leértékelés, amelyet hamarosan html-vé alakítanak
+  * @param {bool} forExport - igaz, ha a html-t az exportáláshoz használja, hamis az előnézethez
+  * @return {string} a módosított jelölést vagy üres karakterláncot, ha semmit sem kell módosítani
+  */
+függvény preNoteToMarkdownHtmlHook(note, markdown, forExport);
 ```
 
 Érdemes megnézni a példát [preview-styling.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/preview-styling.qml).
@@ -201,19 +201,19 @@ noteToMarkdownHtmlHook
 ### Módszerhívás és paraméterek
 ```js
 /**
-  * Ezt a függvényt akkor hívják meg, amikor egy jegyzet markdown html-jét létrehozzák
+  * Ezt a függvényt akkor hívják meg, amikor egy jegyzet leíró html-jét generálják
   *
-  * Lehetővé teszi ennek a html-nek a módosítását
-  * Ezt például a jegyzet előnézete hívta meg korábban
+  * Lehetővé teszi a html módosítását
+  * Ezt például korábban a jegyzet előnézete hívja meg
   *
-  * A módszer több szkriptben is használható az előnézet html-jének módosítására
+  * A funkció több szkriptben is használható az előnézet html-jének módosítására
   *
-  * @param {NoteApi} megjegyzés - a jegyzet objektum
-  * @param {string} html - a megjelenítés előtt álló html
-  * @param {string} forExport - igaz, ha a html-t exportálják, hamis az előnézethez
-  * @return {string} a módosított html vagy egy üres karakterlánc, ha semmit nem kellene módosítani
+  * @param {NoteApi} note – a jegyzetobjektum
+  * @param {karakterlánc} html - a html, amely hamarosan megjelenik
+  * @param {bool} forExport - igaz, ha a html-t az exportáláshoz használja, hamis az előnézethez
+  * @return {string} a módosított html-t vagy egy üres karakterláncot, ha semmit sem kell módosítani
   */
-function noteToMarkdownHtmlHook(note, html, forExport);
+függvény noteToMarkdownHtmlHook(note, html, forExport);
 ```
 
 Érdemes megnézni a példát [example.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/example.qml) vagy [preview-styling.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/preview-styling.qml).
@@ -262,7 +262,7 @@ Megvalósíthatja saját jegyzetcímkézési mechanizmusát, például a jegyzet
 -   amint egy szkript aktiválódik, amely végrehajtja az új függvényt, a `noteTaggingHook` jegyzet címkézést ez a függvény kezeli.
 -   a következő funkcióknak a QOwnNotes felhasználói felületén keresztül kell működniük
     -   kezdetben olyan címkéket importál a jegyzeteiből, mint a `@tag`, és felülírja az aktuális címkekiosztást
-        -   nem fogja elveszíteni a címkefáját, csak a jegyzetekhez való korábbi hozzárendelést
+        -   nem veszíti el a címkék fáját, csak a jegyzetekhez való korábbi hozzárendelést
         -   továbbra is áthelyezhet címkéket más címkékbe
         -   ha egynél több címkének ugyanaz a neve a címkefájában, akkor az első találatot hozzárendelik
     -   címke hozzáadása egy jegyzethez hozzáadja a címkét a jegyzet szövegéhez
@@ -380,3 +380,21 @@ függvény windowStateChangedHook (windowState);
 ```
 
 Érdemes megnézni a példát [window-state-changed.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/window-state-changed.qml).
+
+workspaceSwitchedHook
+----------------------
+
+This hook is called when workspaces are switched.
+
+### Módszerhívás és paraméterek
+```js
+/**
+ * This function is called when workspaces are switched
+ *
+ * @param oldUuid old uuid of workspace
+ * @param newUuid new uuid of workspace
+ */
+function workspaceSwitchedHook(oldUuid, newUuid);
+```
+
+Érdemes lehet egy pillantást vetni a példára [websocket-raw-data-new-note.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/workspaces.qml).

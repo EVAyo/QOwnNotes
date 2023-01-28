@@ -154,17 +154,17 @@ handleNewNoteHeadlineHook
 ### Appel de méthode et paramètres
 ```js
 /**
-  * Cette fonction est appelée avant la création d'une note de note
-  *
-  * Il vous permet de modifier le titre de la note avant sa création
-  * Notez que vous devez faire attention à un nom de note unique, sinon
-  * la nouvelle note ne sera pas créée, elle sera juste trouvée dans la liste des notes
-  *
-  * Vous pouvez utiliser cette méthode pour créer des modèles de notes
-  *
-  * Texte du titre @param qui serait utilisé pour créer le titre
-  * @return {string} le titre de la note
-  */
+ * Cette fonction est appelée avant la création d'une note
+ *
+ * Elle vous permet de modifier le titre de la note avant sa création
+ * Notez que vous devez faire attention à un nom de note unique, sinon
+ * la nouvelle note ne sera pas créée, elle sera seulement présente dans la liste des notes
+ *
+ * Vous pouvez utiliser cette fonction pour créer des modèles de notes
+ *
+ * @param texte du titre qui serait utilisé pour créer le titre
+ * @return {string} le titre de la note
+ */
 function handleNewNoteHeadlineHook(headline);
 ```
 
@@ -180,17 +180,17 @@ preNoteToMarkdownHtmlHook
  *
  * Elle vous permet de modifier ce qui est passé au convertisseur Markdown vers HTML
  *
- * La méthode peut par exemple être utilisée dans de multiples scripts pour rendre du code (comme LaTeX math ou mermaid)
+ * La fonction peut par exemple être utilisée dans de multiples scripts pour rendre du code (comme LaTeX math ou mermaid)
  * dans sa représentation graphique pour l'aperçu
  *
  * La note ne sera pas modifiée dans ce processus
  *
  * @param {NoteApi} note - l'objet note
- * @param {string} markdown - le Markdown qui est sur le point d'être converti en HTML
+ * @param {string} markdown - le Markdown qui doit être converti en HTML
  * @param {string} forExport - true si le HTML est utilisé pour une exportation, false pour l'aperçu
  * @return {string} le Markdown modifié ou une chaîne vide si rien ne doit être modifié
  */
-function preNoteToMarkdownHtmlHook (note, markdown, forExport);
+function preNoteToMarkdownHtmlHook(note, markdown, forExport);
 ```
 
 Vous voudrez peut-être jeter un coup d'œil à l'exemple [preview-styling.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/preview-styling.qml).
@@ -203,17 +203,17 @@ noteToMarkdownHtmlHook
 /**
  * Cette fonction est appelée lorsque le code HTML Markdown d'une note est généré
  *
- * Il vous permet de modifier ce HTML
- * Elle est par exemple appelé avant par l'aperçu de la note
+ * Elle vous permet de modifier ce HTML
+ * Elle est par exemple appelée avant par l'aperçu de la note
  *
- * La méthode peut être utilisée dans plusieurs scripts pour modifier le HTML de l'aperçu
+ * Cette fonction peut être utilisée dans plusieurs scripts pour modifier le HTML de l'aperçu
  *
  * @param {NoteApi} note - l'objet note
- * @param {string} html - le HTML qui est sur le point d'être rendu
+ * @param {string} html - le HTML qui est doit être rendu
  * @param {string} forExport - true si le HTML est utilisé pour une exportation, false pour l'aperçu
  * @return {string} le code HTML modifié ou une chaîne vide si rien ne doit être modifié
  */
-function noteToMarkdownHtmlHook (note, html, forExport);
+function noteToMarkdownHtmlHook(note, html, forExport);
 ```
 
 Vous voudrez peut-être jeter un coup d'œil à l'exemple [exemple.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/example.qml) ou [preview-styling.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/preview-styling.qml).
@@ -381,3 +381,21 @@ function windowStateChangedHook (windowState);
 ```
 
 Vous voudrez peut-être jeter un coup d'œil à l'exemple [window-state-changed.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/window-state-changed.qml).
+
+workspaceSwitchedHook
+----------------------
+
+Ce crochet est appelé quand il y a bascule entre les flux de travail.
+
+### Appel de méthode et paramètres
+```js
+/**
+ * Cette fonction est appelée quand il y a bascule entre les flux de travail
+ *
+ * @param oldUuid uuid actuel de l'espace de travail
+ * @param newUuid nouvel uuid de l'espace de travail
+ */
+function workspaceSwitchedHook(oldUuid, newUuid);
+```
+
+Vous voudrez peut-être jeter un coup d'œil à l'exemple [websocket-raw-data-new-note.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/workspaces.qml).

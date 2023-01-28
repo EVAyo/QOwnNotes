@@ -20,10 +20,14 @@ Nincs szüksége a hordozható módra, ha csak nincs adminisztrációs engedély
 
 A Qt elvetette az 5.8-as verziójú Windows XP támogatását, de a QOwnNotes mostantól a Qt 5.7-tel is fel van építve, hogy a Windows XP felhasználói továbbra is használhassák.
 
-Bár magának meg kell keresnie az [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/history) legfrissebb master buildjét, válassza ki a *Qt 5.7 környezetet* és töltse le az *artefaktum* t.
+Saját magának kell letöltenie a ZIP-fájlt az [AppVeyor](https://ci.appveyor.com/project/pbek/qownnotes/build/artifacts) webhelyről, és ki kell csomagolnia egy tetszőleges mappába.
 
-::: tip Info
-Az automatikus frissítési mechanizmus nem működik az AppVeyor Windows XP rendszerhez készült verziójával! Magának le kell töltenie az új kiadásokat.
+Ezután közvetlenül futtathatja a `QOwnNotes.exe` fájlt a mappából, nincs szükség telepítésre.
+
+::: tip
+Info
+Az automatikus frissítési mechanizmus nem működik a Windows XP AppVeyor buildjével!
+Magának le kell töltenie az új kiadásokat.
 :::
 
 ## Chocolatey
@@ -38,7 +42,7 @@ choco install qownnotes
 
 ## Scoop
 
-There is a [community maintained package of QOwnNotes](https://github.com/ScoopInstaller/Extras/blob/master/bucket/qownnotes.json) at [Scoop](https://scoop.sh/). If you add the Extras bucket you can use it to install QOwnNotes in portable mode.
+Van egy [közösségi karbantartott QOwnNotes-csomag](https://github.com/ScoopInstaller/Extras/blob/master/bucket/qownnotes.json) a [Scoop](https://scoop.sh/)-nál. Ha hozzáadja az Extras tárolót, akkor a QOwnNotes hordozható módban történő telepítéséhez használhatja.
 
 ```shell
 scoop bucket add extras

@@ -168,13 +168,13 @@ handleNewNoteHeadlineHook
 ### Method call and parameters
 ```js
 /**
- * This function is called before a note note is created
+ * This function is called before a note is created
  *
  * It allows you to modify the headline of the note before it is created
  * Note that you have to take care about a unique note name, otherwise
  * the new note will not be created, it will just be found in the note list
  *
- * You can use this method for creating note templates
+ * You can use this function for creating note templates
  *
  * @param headline text that would be used to create the headline
  * @return {string} the headline of the note
@@ -195,14 +195,14 @@ preNoteToMarkdownHtmlHook
  *
  * It allows you to modify what is passed to the markdown to html converter
  *
- * The method can for example be used in multiple scripts to render code (like LaTeX math or mermaid)
+ * The function can for example be used in multiple scripts to render code (like LaTeX math or mermaid)
  * to its graphical representation for the preview
  *
  * The note will not be changed in this process
  *
  * @param {NoteApi} note - the note object
  * @param {string} markdown - the markdown that is about to being converted to html
- * @param {string} forExport - true if the html is used for an export, false for the preview
+ * @param {bool} forExport - true if the html is used for an export, false for the preview
  * @return {string} the modified markdown or an empty string if nothing should be modified
  */
 function preNoteToMarkdownHtmlHook(note, markdown, forExport);
@@ -222,11 +222,11 @@ noteToMarkdownHtmlHook
  * It allows you to modify this html
  * This is for example called before by the note preview
  *
- * The method can be used in multiple scripts to modify the html of the preview
+ * The function can be used in multiple scripts to modify the html of the preview
  *
  * @param {NoteApi} note - the note object
  * @param {string} html - the html that is about to being rendered
- * @param {string} forExport - true if the html is used for an export, false for the preview
+ * @param {bool} forExport - true if the html is used for an export, false for the preview
  * @return {string} the modified html or an empty string if nothing should be modified
  */
 function noteToMarkdownHtmlHook(note, html, forExport);
@@ -291,7 +291,7 @@ function noteTaggingHook(note, action, tagName, newTagName);
 -   following features should work via the QOwnNotes user interface
     -   initially importing tags like `@tag` from your notes and
         overwriting your current tag assignment
-        -   you will not loose your tags tree, just the former assignment
+        -   you will not lose your tags tree, just the former assignment
             to notes
         -   you can still move tags into other tags
         -   if more than one tag has the same name in your tag tree the
@@ -436,3 +436,22 @@ function windowStateChangedHook(windowState);
 
 You may want to take a look at the example
 [window-state-changed.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/window-state-changed.qml).
+
+workspaceSwitchedHook
+----------------------
+
+This hook is called when workspaces are switched.
+
+### Method call and parameters
+```js
+/**
+ * This function is called when workspaces are switched
+ *
+ * @param oldUuid old uuid of workspace
+ * @param newUuid new uuid of workspace
+ */
+function workspaceSwitchedHook(oldUuid, newUuid);
+```
+
+You may want to take a look at the example
+[websocket-raw-data-new-note.qml](https://github.com/pbek/QOwnNotes/blob/develop/docs/scripting/examples/workspaces.qml).
